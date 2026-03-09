@@ -1,0 +1,6 @@
+
+# required for shutdown and restart to be seamless
+[type=file uid=0 gid=0 dperms=0555] var/etc/sudoers.d/shutdown={ 
+qnxuser ALL=(ALL) NOPASSWD: /usr/bin/shutdown -S reboot
+qnxuser ALL=(ALL) NOPASSWD: /usr/bin/shutdown -S system
+}

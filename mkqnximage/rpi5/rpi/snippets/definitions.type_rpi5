@@ -1,0 +1,60 @@
+# definitions.type_raspi
+# Most of these were copied from the RPI5 BSP, though there is a
+# section at the end with some stuff from mkqnximage's RPI4 support.
+
+# Kernel related
+#define __STARTUP__ startup-bcm2712-rpi5 -u reg -a
+
+# Start kernel with watchdog? Requires "wdtkick -W0x24:0x5A028E4C -W0x1c:0x5A000020"
+# to be executed shortly after slog2 is started
+# #define __STARTUP__ startup-bcm2712-rpi5 -u reg -a -W 5000 
+
+# SD/MMC driver related
+#define __DEVB_NAME__ devb-sdmmc-bcm2712
+#define __DEVB_OPTS__ sdio addr=0x1000fff000,irq=305 disk name=hd
+
+# Debug console serial driver
+#define __DEVC_NAME__ devc-serpl011-rpi5
+#define __DEVC_OPTS__ -b115200 -c44236800 -e -F -u10 -D 0x107d001000^2,153
+#define __DEVC_PATH__ /dev/ser10
+
+# PCI related
+#define __HAS_PCI__
+#define __PCI_HW_MODULE__ pci_hw-bcm2712-rpi5.so
+#define __PCI_BUSCFG_MODULE__ pci_server-buscfg-generic.so
+# I would love to define a __PCI_HW_CONFIG_FILE__ macro so that a reference
+# to it is automatically added to the generated pci_server.cfg file.
+# However that causes mkqnximage to auto-generate a pci_hw.cfg file
+# that doesn't match the one in the RPI5 BSP, and I don't see an easy
+# way to override or change that.
+#
+# Work around this by NOT defining a __PCI_HW_CONFIG_FILE__ macro for
+# mkqnximage and instead use an environment variable
+# (see ifs_env.type_rpi5) to to specify the file and manually generate
+# it myself (see ifs_files.99.type_rpi5)
+#
+# Define a macro that is similar that I can use so that this comment is
+# discoverable and perhaps can be fixed/removed in the future if mkqnximage's
+# capabilities are increased.
+#define __PCI_RPI5_HW_CONFIG_FILE__ pci_hw-bcm2712-rpi5.cfg
+
+# Networking
+# These options currently come from the base RPI5 BSP.
+# They duplicate some of the options mkqnximage will automatically pass
+#define __NETDRIVER__ -m fdt -d cgem -m usb -d axe -d axge -d cdce -d smsc
+#define __NETDEVICE__ cgem0
+#define __IOSOCK_OPTIONS__
+
+#define __WIFIDRIVER__ -o config=/system/etc/io-sock.conf -d qwdi_dhd_sdio-2_11-rpi5
+#define __WIFIDEVICE__ bcm0
+
+# #####################################################################
+# Everything below this point was copied from mkqnximage's built-in
+# RPI support. Not sure if it is needed or not.
+# #####################################################################
+#define __BOOT_ADDR__ 0x80000
+#define __VIRTUAL__ aarch64le,raw
+#define __LD_QNX__ ldqnx-64.so.2
+
+# #undef __IO_USB_OTG_OPTIONS__
+# #define __IO_USB_OTG_OPTIONS__ -t memory=below1G -d bcm2711-xhci pindex=0,memory=below1G

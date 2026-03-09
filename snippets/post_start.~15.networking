@@ -1,0 +1,17 @@
+# post_start.~15.networking
+# Start or adjust any networking required
+. /data/var/etc/settings/network
+
+ip6addrctl install /system/etc/ip6addrctl.conf
+
+if [ ! -z "$IP_ADDR" ] && [ ! "$IP_ADDR" = "dhcp" ]; then
+  # Using a static IP so dhcp won't automatically start mdnsd for us
+  mdnsd
+  on -d -u 50:50  dns-sd -R "XYZ" _airplay._tcp local 500x >/dev/null
+fi
+
+# set the host name based on the network settings
+if [ ! -z "$HOSTNAME" ]; then
+  setconf _CS_HOSTNAME $HOSTNAME
+  hostname $HOSTNAME
+fi

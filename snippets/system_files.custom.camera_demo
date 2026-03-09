@@ -1,0 +1,216 @@
+# <com.qnx.qnx800.target.sf.base>
+[type=file uid=0 gid=0 perms=0755] bin/sensor=bin/sensor
+[type=file uid=0 gid=0 perms=0755] lib/libsensor_utils.so.1=usr/lib/libsensor_utils.so.1
+[type=link] lib/libsensor_utils.so=libsensor_utils.so.1
+
+# <com.qnx.qnx800.target.sf.camapi>
+[type=file uid=0 gid=0 perms=0755] lib/libcamapi.so.1=usr/lib/libcamapi.so.1
+[type=link] lib/libcamapi.so=libcamapi.so.1
+[type=file uid=0 gid=0 perms=0755] lib/libcamapi_video.so.1=usr/lib/libcamapi_video.so.1
+[type=link] lib/libcamapi_video.so=libcamapi_video.so.1
+
+# <com.qnx.qnx800.target.sf.camapi_examples>
+[type=file uid=0 gid=0 perms=0755] bin/camera_example1_callback=usr/bin/camera_example1_callback
+[type=file uid=0 gid=0 perms=0755] bin/camera_example2_events=usr/bin/camera_example2_events
+[type=file uid=0 gid=0 perms=0755] bin/camera_example3_viewfinder=usr/bin/camera_example3_viewfinder
+[type=file uid=0 gid=0 perms=0755] bin/camera_example4_record=usr/bin/camera_example4_record
+[type=file uid=0 gid=0 perms=0755] bin/camera_example5_video_group=usr/bin/camera_example5_video_group
+[type=file uid=0 gid=0 perms=0755] bin/camera_example6_egl_viewfinder=usr/bin/camera_example6_egl_viewfinder
+[type=file uid=0 gid=0 perms=0755] bin/camera_mux=usr/bin/camera_mux
+[type=file uid=0 gid=0 perms=0755] bin/camera_rearview=usr/bin/camera_rearview
+
+# <com.qnx.qnx800.target.sf.camera.ipc_server>
+[type=file uid=0 gid=0 perms=0755] lib/libipc_server_camera.so.1=usr/lib/libipc_server_camera.so.1
+[type=link] lib/libipc_server_camera.so=libipc_server_camera.so.1
+
+# <com.qnx.qnx800.target.sf.sensor>
+[type=file uid=0 gid=0 perms=0755] bin/sensor_example=usr/bin/sensor_example
+[type=file uid=0 gid=0 perms=0755] lib/libsensor.so.1=usr/lib/libsensor.so.1
+[type=link] lib/libsensor.so=libsensor.so.1
+
+# <com.qnx.qnx800.target.sf.serdes>
+[type=file uid=0 gid=0 perms=0755] lib/libserdes_maxim.so.1=usr/lib/libserdes_maxim.so.1
+[type=link] lib/libserdes_maxim.so=libserdes_maxim.so.1
+[type=file uid=0 gid=0 perms=0755] lib/libserdes_ti.so.1=usr/lib/libserdes_ti.so.1
+[type=link] lib/libserdes_ti.so=libserdes_ti.so.1
+
+# <com.qnx.qnx800.target.mm.aoi>
+[type=file uid=0 gid=0 perms=0755] bin/aoiconftool=usr/bin/aoiconftool
+[type=file uid=0 gid=0 perms=0755] lib/libaoi.so.2=usr/lib/libaoi.so.2
+[type=link] lib/libaoi.so=libaoi.so.2
+
+# <com.qnx.qnx800.target.mm.encode.mp4.container>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/mp4_writer.so=lib/dll/mmedia/mp4_writer.so
+
+# <com.qnx.qnx800.target.mm.input.file>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/fildes_streamer.so=lib/dll/mmedia/fildes_streamer.so
+
+# <com.qnx.qnx800.target.mm.mmf.core>
+[type=file uid=0 gid=0 perms=0755] bin/mmfreport=usr/bin/mmfreport
+[type=file uid=0 gid=0 perms=0755] lib/liblogging.so.1=usr/lib/liblogging.so.1
+[type=link] lib/liblogging.so=liblogging.so.1
+[type=file uid=0 gid=0 perms=0755] lib/libmmedia.so.1=usr/lib/libmmedia.so.1
+[type=link] lib/libmmedia.so=libmmedia.so.1
+[type=file uid=0 gid=0 perms=0755] lib/libmmfilter.so.1=usr/lib/libmmfilter.so.1
+[type=link] lib/libmmfilter.so=libmmfilter.so.1
+
+# <com.qnx.qnx800.target.mm.playback.mp4.container>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/mp4_reader.so=lib/dll/mmedia/mp4_reader.so
+
+# <com.qnx.qnx800.target.mm.resarb.core>
+[type=file uid=0 gid=0 perms=0755] bin/resarb=bin/resarb
+[type=file uid=0 gid=0 perms=0755] lib/libresarb.so.1=usr/lib/libresarb.so.1
+[type=link] lib/libresarb.so=libresarb.so.1
+
+# <com.qnx.qnx800.osr.av1>
+[type=file uid=0 gid=0 perms=0755] bin/aomdec=usr/bin/aomdec
+[type=file uid=0 gid=0 perms=0755] bin/aomenc=usr/bin/aomenc
+[type=file uid=0 gid=0 perms=0755] lib/libaom.so.3.11.0=usr/lib/libaom.so.3.11.0
+[type=link] lib/libaom.so.3=libaom.so.3.11.0
+[type=link] lib/libaom.so=libaom.so.3
+
+# <com.qnx.qnx800.osr.fdk_aac>
+[type=file uid=0 gid=0 perms=0755] bin/aac-enc=usr/bin/aac-enc
+[type=file uid=0 gid=0 perms=0755] lib/libfdk-aac.so.2=usr/lib/libfdk-aac.so.2
+[type=link] lib/libfdk-aac.so=libfdk-aac.so.2
+
+# <com.qnx.qnx800.osr.jsoncpp>
+[type=file uid=0 gid=0 perms=0755] lib/libjsoncpp.so.1.8.4=usr/lib/libjsoncpp.so.1.8.4
+[type=link] lib/libjsoncpp.so.19=libjsoncpp.so.1.8.4
+[type=link] lib/libjsoncpp.so=libjsoncpp.so.19
+
+# <com.qnx.qnx800.osr.libhevc>
+[type=file uid=0 gid=0 perms=0755] lib/libhevcdec.so=usr/lib/libhevcdec.so
+[type=file uid=0 gid=0 perms=0755] lib/libhevcenc.so=usr/lib/libhevcenc.so
+
+# <com.qnx.qnx800.osr.libyuv>
+[type=file uid=0 gid=0 perms=0755] lib/libyuv.so=usr/lib/libyuv.so
+
+# <com.qnx.qnx800.osr.openh264>
+[type=file uid=0 gid=0 perms=0755] lib/libopenh264.so.2.6.0=usr/lib/libopenh264.so.2.6.0
+[type=link] lib/libopenh264.so.8=libopenh264.so.2.6.0
+[type=link] lib/libopenh264.so=libopenh264.so.8
+
+# <com.qnx.qnx800.osr.vpx>
+[type=file uid=0 gid=0 perms=0755] lib/libvpx.so.9.0.1=usr/lib/libvpx.so.9.0.1
+[type=link] lib/libvpx.so.9.0=libvpx.so.9.0.1
+[type=link] lib/libvpx.so.9=libvpx.so.9.0
+[type=link] lib/libvpx.so=libvpx.so.9
+
+# <com.qnx.qnx800.target.mm.codec.sw>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/omxil_video_decoder_sw.so=lib/dll/mmedia/omxil_video_decoder_sw.so
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/omxil_video_encoder-sw.so=lib/dll/mmedia/omxil_video_encoder-sw.so
+
+# <com.qnx.qnx800.target.mm.curl.support>
+[type=file uid=0 gid=0 perms=0755] lib/libcurl_support.so.1=usr/lib/libcurl_support.so.1
+[type=link] lib/libcurl_support.so=libcurl_support.so.1
+
+# <com.qnx.qnx800.target.mm.encode.mp2ts.container>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/mp2ts_parser.so=lib/dll/mmedia/mp2ts_parser.so
+
+# <com.qnx.qnx800.target.mm.encode.raw.container>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/rawfile_writer.so=lib/dll/mmedia/rawfile_writer.so
+
+# <com.qnx.qnx800.target.mm.input.rtp>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/rtp_reader.so=lib/dll/mmedia/rtp_reader.so
+
+# <com.qnx.qnx800.target.mm.input.rtsp>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/rtsp_reader.so=lib/dll/mmedia/rtsp_reader.so
+[type=file uid=0 gid=0 perms=0755] lib/libmmsdp.so.1=usr/lib/libmmsdp.so.1
+[type=link] lib/libmmsdp.so=libmmsdp.so.1
+
+# <com.qnx.qnx800.target.mm.omxil.support>
+[type=file uid=0 gid=0 perms=0755] lib/libomxil_support.so.1=usr/lib/libomxil_support.so.1
+[type=link] lib/libomxil_support.so=libomxil_support.so.1
+
+# <com.qnx.qnx800.target.mm.openmaxal.core>
+[type=file uid=0 gid=0 perms=0755] bin/audio-decode=usr/bin/audio-decode
+[type=file uid=0 gid=0 perms=0755] bin/audio-encode=usr/bin/audio-encode
+[type=file uid=0 gid=0 perms=0755] bin/omxal-showmetadata=usr/bin/omxal-showmetadata
+[type=file uid=0 gid=0 perms=0755] bin/omxalplay=usr/bin/omxalplay
+[type=file uid=0 gid=0 perms=0755] bin/video-decode=usr/bin/video-decode
+[type=file uid=0 gid=0 perms=0755] bin/video-encode=usr/bin/video-encode
+[type=file uid=0 gid=0 perms=0755] bin/video-multi=usr/bin/video-multi
+[type=file uid=0 gid=0 perms=0755] lib/libOpenMAXAL.so.1=usr/lib/libOpenMAXAL.so.1
+[type=link] lib/libOpenMAXAL.so=libOpenMAXAL.so.1
+
+# <com.qnx.qnx800.target.mm.openmaxil.comp.av1>
+[type=file uid=0 gid=0 perms=0755] lib/dll/omxil/omxil_comp_av1_dec.so=lib/dll/omxil/omxil_comp_av1_dec.so
+
+# <com.qnx.qnx800.target.mm.openmaxil.comp.h264>
+[type=file uid=0 gid=0 perms=0755] lib/dll/omxil/omxil_comp_openh264_dec.so=lib/dll/omxil/omxil_comp_openh264_dec.so
+[type=file uid=0 gid=0 perms=0755] lib/dll/omxil/omxil_comp_openh264_enc.so=lib/dll/omxil/omxil_comp_openh264_enc.so
+
+# <com.qnx.qnx800.target.mm.openmaxil.comp.hevc>
+[type=file uid=0 gid=0 perms=0755] lib/dll/omxil/omxil_comp_libhevc_dec.so=lib/dll/omxil/omxil_comp_libhevc_dec.so
+
+# <com.qnx.qnx800.target.mm.openmaxil.comp.vp9>
+[type=file uid=0 gid=0 perms=0755] lib/dll/omxil/omxil_comp_vpx_dec.so=lib/dll/omxil/omxil_comp_vpx_dec.so
+
+# <com.qnx.qnx800.target.mm.openmaxil.core>
+[type=file uid=0 gid=0 perms=0755] lib/libomxcore_qnx.so.1=usr/lib/libomxcore_qnx.so.1
+[type=link] lib/libomxcore_qnx.so=libomxcore_qnx.so.1
+[type=file uid=0 gid=0 perms=0755] lib/libomxil_qnx_utility.so.1=usr/lib/libomxil_qnx_utility.so.1
+[type=link] lib/libomxil_qnx_utility.so=libomxil_qnx_utility.so.1
+
+# <com.qnx.qnx800.target.mm.output.screen>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/screen_writer.so=lib/dll/mmedia/screen_writer.so
+
+# <com.qnx.qnx800.target.mm.output.sound>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/alsa_eventer.so=lib/dll/mmedia/alsa_eventer.so
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/alsa_writer.so=lib/dll/mmedia/alsa_writer.so
+
+# <com.qnx.qnx800.target.mm.playback.aac.codec>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/oc_fdkaac_decoder.so=lib/dll/mmedia/oc_fdkaac_decoder.so
+
+# <com.qnx.qnx800.target.mm.playback.aac.container>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/aac_parser.so=lib/dll/mmedia/aac_parser.so
+
+# <com.qnx.qnx800.target.mm.playback.buffering>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/queue_filter.so=lib/dll/mmedia/queue_filter.so
+
+# <com.qnx.qnx800.target.mm.playback.mp2ts.container>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/mp2ts_parser.so=lib/dll/mmedia/mp2ts_parser.so
+
+# <com.qnx.qnx800.target.mm.playback.streaming>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/stream_reader.so=lib/dll/mmedia/stream_reader.so
+
+# <com.qnx.qnx800.target.mm.playback.wav.container>
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmedia/wav_parser.so=lib/dll/mmedia/wav_parser.so
+
+# <com.qnx.qnx800.target.mm.renderer.core>
+[type=file uid=0 gid=0 perms=0755] bin/mmcli=usr/bin/mmcli
+[type=file uid=0 gid=0 perms=0755] bin/mmrplay=usr/bin/mmrplay
+[type=file uid=0 gid=0 perms=0644] etc/mm/mm-renderer.conf=etc/mm/mm-renderer.conf
+[type=file uid=0 gid=0 perms=0755] lib/libmmrndclient.so.1=usr/lib/libmmrndclient.so.1
+[type=link] lib/libmmrndclient.so=libmmrndclient.so.1
+[type=file uid=0 gid=0 perms=0755] lib/libmmrndcore.so.1=usr/lib/libmmrndcore.so.1
+[type=link] lib/libmmrndcore.so=libmmrndcore.so.1
+[type=file uid=0 gid=0 perms=0755] lib/libmmro-mmf.so.1=usr/lib/libmmro-mmf.so.1
+[type=link] lib/libmmro-mmf.so=libmmro-mmf.so.1
+[type=file uid=0 gid=0 perms=0755] sbin/mm-renderer=usr/sbin/mm-renderer
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmr-mmf-routing.so=lib/dll/mmr-mmf-routing.so
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmr-mmfrip-routing.so=lib/dll/mmr-mmfrip-routing.so
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmr-track-engine.so=lib/dll/mmr-track-engine.so
+[type=file uid=0 gid=0 perms=0755] lib/dll/mmrenderer_cli.so=lib/dll/mmrenderer_cli.so
+
+# <com.qnx.qnx800.target.mm.rtp.support>
+[type=file uid=0 gid=0 perms=0755] lib/librimrtp.so.1=lib/librimrtp.so.1
+[type=link] lib/librimrtp.so=librimrtp.so.1
+
+# <com.qnx.qnx800.target.mm.stream.core>
+[type=file uid=0 gid=0 perms=0755] bin/mm-stream=usr/bin/mm-stream
+[type=file uid=0 gid=0 perms=0755] bin/mm-stream-client=usr/bin/mm-stream-client
+[type=file uid=0 gid=0 perms=0755] lib/libmmstream.so.1=usr/lib/libmmstream.so.1
+[type=link] lib/libmmstream.so=libmmstream.so.1
+[type=file uid=0 gid=0 perms=0755] lib/mm-stream-input-camera.so=usr/lib/mm-stream-input-camera.so
+[type=file uid=0 gid=0 perms=0755] lib/mm-stream-input-file.so=usr/lib/mm-stream-input-file.so
+[type=file uid=0 gid=0 perms=0755] lib/mm-stream-input-screen.so=usr/lib/mm-stream-input-screen.so
+[type=file uid=0 gid=0 perms=0755] lib/mm-stream-output-rtp.so=usr/lib/mm-stream-output-rtp.so
+[type=file uid=0 gid=0 perms=0755] lib/mm-stream-processor-openmaxal.so=usr/lib/mm-stream-processor-openmaxal.so
+[type=file uid=0 gid=0 perms=0755] lib/mm-stream-server-rtp.so=usr/lib/mm-stream-server-rtp.so
+[type=file uid=0 gid=0 perms=0755] lib/mm-stream-server-rtsp.so=usr/lib/mm-stream-server-rtsp.so
+
+# <com.qnx.qnx800.target.mm.strm>
+[type=file uid=0 gid=0 perms=0755] lib/libstrm.so.1=usr/lib/libstrm.so.1
+[type=link] lib/libstrm.so=libstrm.so.1

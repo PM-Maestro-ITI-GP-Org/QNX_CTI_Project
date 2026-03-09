@@ -1,0 +1,25 @@
+serial_console/.profile = {
+MYPID=$$
+
+cti_usr1_trap() {
+  if [ "$PS1" == "# " ]; then
+    echo "Serial console is sourcing root's profile."
+    if [ -e /system/etc/profile ]; then
+      . /system/etc/profile
+    else
+      echo "ERROR: /system/etc/profile not found to source"
+    fi
+
+    if [ -e /data/home/root/.profile ]; then
+      . /data/home/root/.profile
+    else
+      echo "ERROR: /data/home/root/.profile not found to source"
+    fi
+  fi
+  trap - USR1
+\}
+trap cti_usr1_trap USR1
+
+export HOME=/data/home/root
+echo $MYPID > /dev/shmem/serial_console.pid
+}

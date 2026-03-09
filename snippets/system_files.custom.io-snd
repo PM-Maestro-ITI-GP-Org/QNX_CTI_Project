@@ -1,0 +1,35 @@
+# Common files related to io-snd
+#
+# These might one day be included automatically by mkqnximage
+# but at the moment that isn't the case.
+#
+
+###########################################################################
+## io-snd drivers
+###########################################################################
+/lib/libasound.so.5=lib/libasound.so.5
+[type=link] /lib/libasound.so=libasound.so.5
+/lib/libsamplerate.so.0.1.9=lib/libsamplerate.so.0.1.9
+[type=link] /lib/libsamplerate.so=libsamplerate.so.0.1.9
+/lib/dll/sndrv-ctrl-usb.so=lib/dll/sndrv-ctrl-usb.so
+/lib/dll/snd-restore.so=lib/dll/snd-restore.so
+/lib/dll/snd-splitter.so=lib/dll/snd-splitter.so
+/lib/dll/snd-swmix.so=lib/dll/snd-swmix.so
+
+###########################################################################
+## io-snd binaries
+###########################################################################
+/bin/io-snd=sbin/io-snd
+/bin/snd_info=usr/bin/snd_info
+/bin/amixer=usr/bin/amixer
+/bin/aplay=usr/bin/aplay
+/bin/arecord=usr/bin/arecord
+/bin/wave=usr/bin/wave
+/bin/waverec=usr/bin/waverec
+/bin/speaker-test=usr/bin/speaker-test
+
+###########################################################################
+## io-snd data files
+###########################################################################
+# TODO: enable when fix QNXAUD-2313 is available
+#share/sounds/alsa=usr/share/sounds/alsa

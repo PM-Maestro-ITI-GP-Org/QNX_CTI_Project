@@ -1,0 +1,9 @@
+#----------------------------------------------------------------------
+# Additional packages for qemu support.
+#
+# These packages are added to the set of common packages defined in the
+# qsc_install_packages.list file in the root of the tree.
+#
+# If the same package is specified in this file and the common one in
+# the root of the tree then the one in this file will win.
+#----------------------------------------------------------------------

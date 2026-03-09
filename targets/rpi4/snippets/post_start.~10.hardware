@@ -1,0 +1,21 @@
+# post_start.~10.hardware
+# Start basic HW functionality
+
+echo '---> Starting USB...'
+/proc/boot/usb_start.sh
+# devb-umass mem name=below1G blk memory=below1G cam pnp
+usblauncher_otg -0 -l
+
+io-hid -dusb
+waitfor /dev/io-hid/io-hid
+
+echo '---> Starting I2C bus...'
+on -u 0:525 i2c-bcm2711 -p0xfe205000 --b100000 --u0
+waitfor /dev/i2c0
+on -u 0:525 i2c-bcm2711 -p0xfe804000 --b100000 --u1
+waitfor /dev/i2c1
+
+echo "---> Starting SPI master driver ..."
+on -u 0:524 spi-bcm2711 -c /system/etc/config/spi/spi.conf
+waitfor /dev/io-spi
+

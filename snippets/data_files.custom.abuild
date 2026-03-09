@@ -1,0 +1,4 @@
+
+# required for abuild builds to create packages successfully
+[type=dir uid=0 gid=0 dperms=0555] var/cache
+[type=dir uid=0 gid=0 dperms=0777] var/cache/distfiles

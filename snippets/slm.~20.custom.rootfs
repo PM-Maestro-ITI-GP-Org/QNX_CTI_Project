@@ -1,0 +1,9 @@
+<SLM:component name="set-host">
+  <SLM:depend>network-init</SLM:depend>
+  <SLM:command launch="builtin">system</SLM:command>
+  <SLM:args>
+  setconf _CS_HOSTNAME __HOSTNAME__
+  </SLM:args>
+  SLMTYPE_P(bogus_t)
+</SLM:component>
+

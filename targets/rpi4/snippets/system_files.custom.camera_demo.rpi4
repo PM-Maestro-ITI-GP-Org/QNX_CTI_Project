@@ -1,0 +1,63 @@
+# <com.qnx.qnx800.target.sf.camera.imx219>
+[type=file uid=0 gid=0 perms=0755] lib/libimx219_external_camera.so.1=usr/lib/libimx219_external_camera.so.1
+[type=link] lib/libimx219_external_camera.so=libimx219_external_camera.so.1
+
+# <com.qnx.qnx800.target.sf.camera.imx390>
+[type=file uid=0 gid=0 perms=0755] lib/libimx390_external_camera.so.1=usr/lib/libimx390_external_camera.so.1
+[type=link] lib/libimx390_external_camera.so=libimx390_external_camera.so.1
+
+# <com.qnx.qnx800.target.sf.camera.imx708>
+[type=file uid=0 gid=0 perms=0755] lib/libimx708_external_camera.so.1=usr/lib/libimx708_external_camera.so.1
+[type=link] lib/libimx708_external_camera.so=libimx708_external_camera.so.1
+
+# <com.qnx.qnx800.target.sf.camera.ov2312>
+[type=file uid=0 gid=0 perms=0755] lib/libov2312_external_camera.so.1=usr/lib/libov2312_external_camera.so.1
+[type=link] lib/libov2312_external_camera.so=libov2312_external_camera.so.1
+
+# <com.qnx.qnx800.target.sf.camera.usb>
+[type=file uid=0 gid=0 perms=0755] lib/libusb_external_camera.so.1=usr/lib/libusb_external_camera.so.1
+[type=link] lib/libusb_external_camera.so=libusb_external_camera.so.1
+
+# <com.qnx.qnx800.target.sf.hw.bcm.rpi4_isp>
+[type=file uid=0 gid=0 perms=0755] lib/libbcm_rpi4_isp.so.1=usr/lib/libbcm_rpi4_isp.so.1
+[type=link] lib/libbcm_rpi4_isp.so=libbcm_rpi4_isp.so.1
+
+# <com.qnx.qnx800.target.sf.hw.bcm.rpi4_mbox_interface>
+[type=file uid=0 gid=0 perms=0755] lib/libbcm_rpi4_mbox_interface.so.1=usr/lib/libbcm_rpi4_mbox_interface.so.1
+[type=link] lib/libbcm_rpi4_mbox_interface.so=libbcm_rpi4_mbox_interface.so.1
+
+# <com.qnx.qnx800.target.sf.hw.bcm.rpi4_mmal>
+[type=file uid=0 gid=0 perms=0755] lib/libbcm_rpi4_mmal.so.1=usr/lib/libbcm_rpi4_mmal.so.1
+[type=link] lib/libbcm_rpi4_mmal.so=libbcm_rpi4_mmal.so.1
+
+# <com.qnx.qnx800.target.sf.hw.bcm.rpi4_vchiq>
+[type=file uid=0 gid=0 perms=0755] bin/bcm-rpi4-vchiq=usr/bin/bcm-rpi4-vchiq
+[type=file uid=0 gid=0 perms=0755] lib/libbcm_rpi4_vchiq_interface.so.1=usr/lib/libbcm_rpi4_vchiq_interface.so.1
+[type=link] lib/libbcm_rpi4_vchiq_interface.so=libbcm_rpi4_vchiq_interface.so.1
+
+# <com.qnx.qnx800.target.sf.hw.bcm.rpi4_vcsm>
+[type=file uid=0 gid=0 perms=0755] bin/bcm-rpi4-vcsm=usr/bin/bcm-rpi4-vcsm
+[type=file uid=0 gid=0 perms=0755] lib/libbcm_rpi4_vcsm_interface.so.1=usr/lib/libbcm_rpi4_vcsm_interface.so.1
+[type=link] lib/libbcm_rpi4_vcsm_interface.so=libbcm_rpi4_vcsm_interface.so.1
+
+# <com.qnx.qnx800.target.sf.hw.rpi4>
+[type=file uid=0 gid=0 perms=0755] bin/rpi4-debayer-example=usr/bin/rpi4-debayer-example
+
+# <com.qnx.qnx800.target.sf.platform.broadcom>
+[type=file uid=0 gid=0 perms=0755] lib/libsensor_platform_broadcom.so.1=usr/lib/libsensor_platform_broadcom.so.1
+[type=link] lib/libsensor_platform_broadcom.so=libsensor_platform_broadcom.so.1
+
+# <com.qnx.qnx800.target.sf.rpi_isp_tuning_example>
+[type=file uid=0 gid=0 perms=0755] bin/rpi-isp-tuning-example=usr/bin/rpi-isp-tuning-example
+
+# Local configuration files
+[type=file uid=0 gid=0 perms=0644] etc/config/sensor/camera_module3.conf=etc/config/rpi4/sensor/camera_module3.conf
+[type=file uid=0 gid=0 perms=0644] etc/config/sensor/camera_module3_bayer.conf=etc/config/rpi4/sensor/camera_module3_bayer.conf
+[type=file uid=0 gid=0 perms=0644] etc/config/sensor/d435_rgb565_ycbycr.conf=etc/config/rpi4/sensor/d435_rgb565_ycbycr.conf
+[type=file uid=0 gid=0 perms=0644] etc/config/sensor/d435_z16_ycbycr.conf=etc/config/rpi4/sensor/d435_z16_ycbycr.conf
+[type=file uid=0 gid=0 perms=0644] etc/config/sensor/sensor_demo.conf=etc/config/rpi4/sensor/sensor_demo.conf
+[type=file uid=0 gid=0 perms=0644] etc/config/sensor/u3v_camera.conf=etc/config/rpi4/sensor/u3v_camera.conf
+[type=file uid=0 gid=0 perms=0644] etc/config/sensor/usb_camera.conf=etc/config/rpi4/sensor/usb_camera.conf
+[type=file uid=0 gid=0 perms=0644] etc/config/sensor/usb_camera_jpeg.conf=etc/config/rpi4/sensor/usb_camera_jpeg.conf
+[type=file uid=0 gid=0 perms=0644] etc/config/sensor/video_playback.conf=etc/config/rpi4/sensor/video_playback.conf
+

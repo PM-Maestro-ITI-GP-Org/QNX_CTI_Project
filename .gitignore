@@ -1,0 +1,7 @@
+*.swp
+/qnx800/
+/build/
+/install/
+/system/etc/ssl/certs
+/options_file
+*/stage

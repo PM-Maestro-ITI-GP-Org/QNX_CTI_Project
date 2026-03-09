@@ -1,0 +1,5 @@
+# If we've not set our time yet, set it now
+if [ `date +%s` -lt 1000000000 ]; then
+   . /data/var/etc/settings/network
+   ntpdate -u `echo $TIME_SERVERS | sed 's/:/ /g'`
+fi

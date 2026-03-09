@@ -1,0 +1,40 @@
+#if defined(OPT_IO_SOCK_DIAG_yes)
+lib/dll/devs-cgem-diag.so=lib/dll/devs-cgem-diag.so
+#else
+lib/dll/devs-cgem.so=lib/dll/devs-cgem.so
+#endif
+
+# Additional PCI/PCIe files that the RPI5 BSP pulls in
+/lib/libpci.so=lib/libpci.so
+usr/sbin/pci-tool=usr/sbin/pci-tool
+usr/sbin/rsrcdb_query=usr/sbin/rsrcdb_query
+etc/system/config/pci/pcidatabase.com-tab_delimited.txt=${QNX_TARGET}/etc/system/config/pci/pcidatabase.com-tab_delimited.txt
+
+# WIFI related
+lib/dll/devs-qwdi_dhd_sdio-2_11-rpi5.so=lib/dll/devs-qwdi_dhd_sdio-2_11-rpi5.so
+
+[perms=644] etc/io-sock.conf = {
+hw.dhdsdio.dev0="rpi5"
+dev.qwdi_wifi.conf="/system/etc/wifi/qwdi_wifi.conf"
+}
+
+[perms=644] etc/wifi/qwdi_wifi.conf = {
+fw=/system/etc/wifi/firmware/brcmfmac43455-sdio.raspberrypi,5-model-b.bin
+nvram=/system/etc/wifi/firmware/brcmfmac43455-sdio.raspberrypi,5-model-b.txt
+clm_blob=/system/etc/wifi/firmware/brcmfmac43455-sdio.raspberrypi,5-model-b.clm_blob
+sdio_baseaddr=0x1001100000
+sdio_irq=306
+drv_supp=7
+key_delay=5
+sdio_verbose=0
+dhd_verbose=0
+qwdi_dbg_level=0
+}
+
+[perms=444] etc/wifi/firmware/brcmfmac43455-sdio.raspberrypi,5-model-b.bin=brcmfmac43455-sdio.raspberrypi,5-model-b.bin
+[perms=444] etc/wifi/firmware/brcmfmac43455-sdio.raspberrypi,5-model-b.clm_blob=brcmfmac43455-sdio.raspberrypi,5-model-b.clm_blob
+[perms=444] etc/wifi/firmware/brcmfmac43455-sdio.raspberrypi,5-model-b.txt=brcmfmac43455-sdio.raspberrypi,5-model-b.txt
+
+lib/dll/devs-qwdi_dhd_sdio-2_11-rpi5.so=lib/dll/devs-qwdi_dhd_sdio-2_11-rpi5.so
+
+

@@ -1,0 +1,21 @@
+    # ifs_env.~10.custom
+    # General setup required to be done in the IFS
+    # before most things get started
+
+    # TODO: review TERMINFO in more detail and readjust as required
+    procmgr_symlink /usr/etc/terminfo /usr/share/terminfo
+
+    # Demolauncher / QSC fontconfig has hardcoded system font path
+    procmgr_symlink /system/share/fonts /system/fonts
+
+    ALSA_CONFIG_PATH=/usr/etc/alsa/alsa.conf
+    FONTCONFIG_PATH=/etc/fonts
+    MM_INIT=/usr/lib/dll/mmedia
+    OMXIL_COMPONENT_PATH=/usr/lib/dll/omxil
+    TERM=xterm-256color
+
+    # TODO: review TERMINFO in more detail and readjust as required
+    #TERMINFO=/usr/etc/terminfo
+    TERMINFO=/usr/share/terminfo
+    TZDIR=/usr/share/zoneinfo
+    VIMRUNTIME=/usr/share/vim/vim91

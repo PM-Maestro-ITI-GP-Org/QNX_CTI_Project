@@ -1,0 +1,52 @@
+--- ../../build/qemu/output/build/data.build.orig	2025-09-02 14:46:44.674431135 -0400
++++ ../../build/qemu/output/build/data.build	2025-09-02 14:39:36.011854260 -0400
+@@ -76,6 +76,40 @@
+ }
+ 
+ #############################################
++## PAM
++#############################################
++[uid=0 gid=0 dperms=755 type=dir] var/etc/pam.d
++
++[perms=444] var/etc/pam.d/login = {
++auth requisite pam_qnx.so
++account requisite pam_qnx.so
++session requisite pam_qnx.so
++
++password requisite pam_qnx.so
++}
++[perms=444] var/etc/pam.d/sshd = {
++auth requisite pam_qnx.so
++account requisite pam_qnx.so
++session requisite pam_qnx.so
++
++password requisite pam_qnx.so
++}
++[perms=444] var/etc/pam.d/passwd = {
++auth requisite pam_qnx.so
++account requisite pam_qnx.so
++session requisite pam_qnx.so
++password requisite pam_qnx.so
++}
++[perms=444] var/etc/pam.d/su = {
++auth sufficient pam_rootok.so no_warn
++auth requisite pam_qnx.so
++account requisite pam_qnx.so
++session requisite pam_qnx.so
++
++password requisite pam_qnx.so
++}
++
++#############################################
+ ### Customization
+ #############################################
+ 
+@@ -444,8 +478,6 @@
+ }
+ [type=dir perms=0755] var/fontconfig
+ home/root/.ssh/authorized_keys=/home/rsperanza/working/QNXE/repos/self_hosting/quickstartbsp_raspberrypi-bcm2711-rpi4//build/qemu/root_authorized_keys
+-[gid=0 uid=0 perms=400] var/ssh/ssh_host_rsa_key=local/misc_files/ssh_host_rsa_key
+-[gid=0 uid=0 perms=400] var/ssh/ssh_host_ed25519_key=local/misc_files/ssh_host_ed25519_key
+ [uid=1000 gid=1000]
+ [type=dir acl=u:0:x,u:30:x] home/qnxuser
+ [type=dir acl=u:30:rwx] home/qnxuser/cores

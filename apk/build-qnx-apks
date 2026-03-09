@@ -1,0 +1,244 @@
+#!/bin/bash -e
+
+# Copyright (c) 2026, BlackBerry Limited. All rights reserved.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+readonly PROGNAME="build-qnx-apks"
+
+function usage() {
+    echo "Usage: build-qnx-apks <repository> [options]
+
+QNX's APK-based Image Generator
+
+Arguments:
+  <repository>          Path to the repository to build
+
+Options:
+  -o --output		Path where to put the resulting APK repo
+
+  --arch                Arch to build for (x86_64/aarch64)
+
+  --swc-cli-path PATH   Path to the executable for software center cli
+                        if not provided will check PATH
+
+  --swc-cli-options PATH   Path to the options_file for software center cli
+
+"
+   exit $1
+}
+
+
+function msg() {
+    echo "[build-qnx-apks] $*"
+}
+
+function download_qpkgs() {
+  IFS=$'\n'
+  pkgs=( )
+  for pkg in $(cat "$1"); do
+    [[ "$pkg" =~ ^#.*$ ]] && continue
+    pkgs+=( -downloadPackage "$pkg" )
+  done
+  $SWC_CLI_PATH "${pkgs[@]}" -destination $2 -unmanaged -downloadOnly $SWC_CLI_OPTIONS
+}
+
+function cleanup_web_server() {
+  kill "$server_pid"
+}
+
+opts=$(getopt -n $PROGNAME -o "h,o:" -l "help,swc-cli-path:,swc-cli-options:,arch:,output:" -- "$@" ) || usage >&2
+
+eval set -- "$opts"
+while [ $# -gt 0 ]; do
+    case $1 in
+	    -h | --help) usage 0;;
+	    --swc-cli-path) SWC_CLI_PATH=$(realpath $2);;
+	    -o | --output) OUTPUT_DIR=$(realpath $2);;
+	    --swc-cli-options) SWC_CLI_OPTIONS="@$(realpath $2)";;
+	    --arch) CARCH="$2";;
+	    --) shift; break;;
+    esac
+    shift 2
+done
+
+
+REPOSITORY_PATH=$(realpath "$1")
+QPKG_LIST=$(realpath "$REPOSITORY_PATH"/qsc_install_packages.list)
+ORDER_PATH=$(realpath "$REPOSITORY_PATH"/order.txt)
+TMP_DIR="$(mktemp -d -t build-qnx-apks.XXXXXX)"
+QPKG_DEST="$TMP_DIR/qapk"
+BUILD_ROOT="$TMP_DIR/apk_root"
+
+echo "$TMP_DIR"
+
+if [[ -z $QNX_TARGET ]]; then
+    msg "QNX_TARGET not defined: Activate you QNX SDP"
+    exit 1
+fi
+
+if [[ -z $CARCH ]]; then
+    msg "Please define a arch with --arch or \$CARCH"
+    exit 1
+fi
+
+if ! [[ -n $APK_PATH ]]; then
+  APK_PATH=$(command -v "apk" || echo "")
+fi
+
+if ! [[ -n $ABUILD_PATH ]]; then
+  ABUILD_PATH=$(command -v "abuild" || echo "")
+fi
+
+if ! [[ -n $ABUILD_CONF ]]; then
+  ABUILD_CONF=~/.abuild/abuild.conf
+fi
+
+if ! [[ -n $SWC_CLI_PATH ]]; then
+  SWC_CLI_PATH=$(command -v "qnxsoftwarecenter_clt" || echo "")
+fi
+
+if ! [[ -n $SWC_CLI_OPTIONS ]]; then
+  SWC_CLI_OPTIONS=""
+fi
+
+if [[ -z "$APK_PATH" ]]; then
+  msg "apk-tools is required to build qnx packages"
+  usage 1
+fi
+
+if [[ -z "$ABUILD_PATH" ]]; then
+  msg "abuild is required to build qnx packages"
+  usage 1
+fi
+
+if [[ -z "$SWC_CLI_PATH" ]]; then
+  msg "qnxsoftwarecenter_clt is required to build qnx packages"
+  usage 1
+fi
+
+if ! [[ -f "$QPKG_LIST" ]]; then
+  msg "$REPOSITORY_PATH is missing qsc_install_packages.list"
+  exit 1
+fi
+
+# Download need qapks and put them into a folder that matches the api of swcenter
+msg "Downloading required APKS"
+download_qpkgs $QPKG_LIST $QPKG_DEST
+mkdir -p "$QPKG_DEST"
+IFS=$'\n'
+for pkg in $(cat "$QPKG_LIST"); do
+  if [[ "$pkg" =~ ^# ]]; then
+   continue 
+  fi
+  
+  pkg_name="${pkg%/*}"
+  pkg_version="${pkg#*/}"
+
+  mkdir -p "$QPKG_DEST"/"$pkg_name"/"$pkg_version"
+  mv "$QPKG_DEST"/downloads/"$pkg_name"_"$pkg_version".qpkg "$QPKG_DEST"/"$pkg_name"/"$pkg_version"/download
+done
+
+rm -rf "$QPKG_DEST/downloads" 
+
+# Build packages based on order.txt
+mkdir -p "$BUILD_ROOT"
+
+# Load $PACKAGER_PRIVKEY from $ABUILD_CONF
+# TODO: allow this to load from a passed in file
+set -a
+source $ABUILD_CONF
+set +a
+
+mkdir -p "$BUILD_ROOT"/etc/apk/keys
+echo "$CARCH" > "$BUILD_ROOT"/etc/apk/arch
+cp "$PACKAGER_PRIVKEY.pub" "$BUILD_ROOT"/etc/apk/keys/
+
+_qarch=$CARCH
+if [[ $CARCH == "aarch64" ]]; then
+    _qarch=aarch64le
+fi
+
+ln -s $BUILD_ROOT $BUILD_ROOT/$_qarch
+mkdir -p $BUILD_ROOT/usr/bin
+mkdir -p $BUILD_ROOT/usr/lib
+ln -s $BUILD_ROOT/usr/bin $BUILD_ROOT/bin
+ln -s $BUILD_ROOT/usr/lib $BUILD_ROOT/lib
+
+$APK_PATH --root "$BUILD_ROOT" --usermode add --initdb
+
+export ABUILD_APK_INDEX_OPTS="--arch $CARCH --root $BUILD_ROOT"
+export APK="$APK_PATH $ABUILD_APK_INDEX_OPTS"
+export SUDO_APK=$APK
+export BOOTSTRAP=nobase
+export REPODEST="$TMP_DIR/packages"
+export SRCDEST="$TMP_DIR/cache"
+PORT="4321"
+export QSC_URL="http://localhost:$PORT"
+export CARCH
+
+pushd "$QPKG_DEST"
+python3 -m http.server "$PORT" &
+server_pid=$!
+popd
+
+while ! nc -z 127.0.0.1 "$PORT"; do
+	  sleep 0.05
+  done
+
+trap cleanup_web_server EXIT
+
+gcc(){
+  nto$CARCH-gcc-12.2.0 "$@"
+}
+
+clang(){
+  ntox$CARCH-gcc-12.2.0 "$@"
+}
+
+#based on gcc.sh from qnx-gcc
+export QNX_TARGET="$BUILD_ROOT"
+export CFLAGS="$CFLAGS -I$BUILD_ROOT/usr/include -D_QNX_SOURCE --sysroot=$BUILD_ROOT"
+export CXXFLAGS="$CXXFLAGS -D_QNX_SOURCE"
+export LDFLAGS="$LDFLAGS -L$BUILD_ROOT/usr/lib -shared-libgcc"
+
+export -f gcc clang
+
+_archs=("all" "$CARCH")
+
+IFS=$'\n'
+for pkg in $(cat "$ORDER_PATH"); do
+  [[ "$pkg" =~ ^#.*$ ]] && continue
+  ! [[ ${_archs["$(source $REPOSITORY_PATH/$pkg/APKBUILD && echo "$arch")"]} ]] && msg "$pkg not available for $CARCH skipping"  &&  continue
+  pushd "$REPOSITORY_PATH"/$pkg
+  msg "Building $pkg"
+  case "$pkg" in 
+    qnx-utils)
+	    # weird hack because we dont have anything in qnx-core that provides /bin/sh
+	    # this will match the qnx-gcc package not -dev
+	    tar -xvf "$(find $REPODEST -regex ".*qnx-gcc-[0-9].*")" -C $BUILD_ROOT
+	    $APK_PATH --arch $CARCH --root $BUILD_ROOT add --repository "$REPODEST"/"$(basename $REPOSITORY_PATH)" --virtual .build-deps-$pkg qnx-microkernel qnx-microkernel-dev
+	    abuild -rc
+            $APK_PATH --arch $CARCH --root $BUILD_ROOT del .build-deps-$pkg
+	    ;;
+    *) abuild -dc;;
+  esac
+  popd
+done
+
+if [[ -n $OUTPUT_DIR ]]; then
+  msg "Copying apks to $OUTPUT_DIR"
+  mkdir -p "$OUTPUT_DIR"
+  cp -r "$REPODEST"/"$(basename $REPOSITORY_PATH)"/"$ARCH"/* $OUTPUT_DIR
+fi
+

@@ -1,0 +1,19 @@
+--- ../../build/qemu/output/build/startup.sh.orig	2025-08-29 21:43:21.890446538 -0400
++++ ../../build/qemu/output/build/startup.sh	2025-08-30 15:10:18.553545675 -0400
+@@ -57,15 +57,7 @@
+ start_net.sh
+ 
+ echo "---> Starting sshd"
+-if [ ! -f /data/var/ssh/ssh_host_rsa_key ]; then
+-    ssh-keygen -q -t rsa -N '' -f /data/var/ssh/ssh_host_rsa_key
+-    chown 0:0 /data/var/ssh/ssh_host_rsa_key*
+-fi
+-if [ ! -f /data/var/ssh/ssh_host_ed25519_key ]; then
+-    ssh-keygen -q -t ed25519 -N '' -f /data/var/ssh/ssh_host_ed25519_key
+-    chown 0:0 /data/var/ssh/ssh_host_ed25519_key*
+-fi
+- /system/bin/sshd -f /system/etc/ssh/sshd_config
++/usr/etc/startup/startup_ssh.sh
+ 
+  qconn
+ 

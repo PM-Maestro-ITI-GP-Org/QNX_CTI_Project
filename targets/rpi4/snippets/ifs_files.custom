@@ -1,0 +1,22 @@
+sbin/io-usb-otg
+sbin/usb
+libusbdi.so.2=lib/libusbdi.so.2
+devu-hcd-bcm2711-xhci.so=lib/dll/devu-hcd-bcm2711-xhci.so
+sbin/getty
+
+################################################################################################
+## Script for launching the io-usb-otg
+################################################################################################
+usb_start.sh = {
+#!/bin/sh
+    VL805_VERSION=/dev/shmem/vl805_version.txt
+    pci-tool -d 1:0:0 --read="CFG:0x50" > $VL805_VERSION
+    if grep "50] 00000000" $VL805_VERSION > /dev/null; then
+        echo "Inform vc to load vl805 firmware"
+        mbox-bcm2711 notifyxhcireset=0x100000 > /dev/null 2>&1
+    fi
+    echo "Starting USB xHCI controller in the host mode (/dev/usb/*)..."
+    io-usb-otg -t memory=below1G -d bcm2711-xhci pindex=0,memory=below1G
+    waitfor /dev/usb/io-usb-otg
+    waitfor /dev/usb/devu-hcd-bcm2711-xhci.so
+}

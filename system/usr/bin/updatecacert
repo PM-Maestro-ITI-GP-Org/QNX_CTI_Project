@@ -1,0 +1,68 @@
+#!/bin/sh
+# Copyright (c) 2025, BlackBerry Limited. All rights reserved.
+# 
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# 
+#     http://www.apache.org/licenses/LICENSE-2.0
+# 
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+if [ "$(id -u)" -ne 0 ]; then
+    echo "Permission denied: run as root"
+    exit 1
+fi
+
+URL="https://curl.se/ca/cacert.pem"
+ETAG_FILE="/etc/ssl/certs/etag.txt"
+CERT_FILE="/etc/ssl/certs/cacert.pem"
+
+if [ ! -f "$ETAG_FILE" ]; then
+    echo "" > "$ETAG_FILE"
+fi
+
+current_etag=$(cat "$ETAG_FILE")
+TEMP_FILE=$(mktemp /tmp/cacert.XXXXXX)
+BACKUP_FILE="${CERT_FILE}.bak"
+
+# back current bundle
+cp "$CERT_FILE" "$BACKUP_FILE"
+
+# download new bundle if etag has changed
+response_code=$(curl --show-error --fail --etag-compare "$ETAG_FILE" --etag-save "$ETAG_FILE" -o "$TEMP_FILE" -w "%{response_code}" "$URL")
+
+curl_code=$?
+
+# handle curl failure
+if [ $curl_code -ne 0 ]; then
+    echo "Download failed with curl exit code $curl_code. Restoring backup."
+    mv "$BACKUP_FILE" "$CERT_FILE"
+    echo "$current_etag" > "$ETAG_FILE"
+    rm -f "$TEMP_FILE"
+    exit 1
+fi
+
+# handle http responses
+if [ "$response_code" -eq 304 ]; then
+    echo "ETag match: cacert.pem is up-to-date"
+    rm -f "$TEMP_FILE" "$BACKUP_FILE"
+    exit 0
+fi
+if [ "$response_code" -eq 200 ]; then
+    echo "cacert.pem downloaded successfully"
+    mv "$TEMP_FILE" "$CERT_FILE"
+    chmod 644 "$CERT_FILE"
+    rm -f "$BACKUP_FILE"
+    exit 0
+fi
+
+echo "Unexpected HTTP response: $response_code"
+mv "$BACKUP_FILE" "$CERT_FILE"
+echo "$current_etag" > "$ETAG_FILE"
+rm -f "$TEMP_FILE"
+exit 1

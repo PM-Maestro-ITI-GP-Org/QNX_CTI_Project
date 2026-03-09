@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ "${1}" = "install" ]; then
+	xfce4-terminal -e "bash -c 'sudo make install; read -n 1 -s -r; exit 0'"
+else
+	make "${1}"
+fi

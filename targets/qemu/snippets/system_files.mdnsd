@@ -1,0 +1,5 @@
+# mkqnximage won't automatically include mdnsd/dns-sd for QEMU
+bin/mdnsd=usr/sbin/mdnsd
+bin/dns-sd=usr/bin/dns-sd
+lib/__LIBDNS_SD__=usr/lib/__LIBDNS_SD__
+

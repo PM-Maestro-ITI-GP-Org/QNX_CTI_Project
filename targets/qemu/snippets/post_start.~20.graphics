@@ -1,0 +1,12 @@
+# post_start.~20.graphics
+# Start screen and the graphics stack
+
+echo '---> Starting Screen...'
+screen -u __SCREEN_ID__:__SCREEN_ID__ -c /usr/lib/graphics/drm-virtio/graphics-virtio-virgl.conf >/dev/null 2>&1
+waitfor /dev/screen/
+echo drop_privileges > /dev/screen/command
+
+# Fix ownership of /dev/drm/* files
+#
+# This can probably be removed once CSEC-3551 is fixed
+#chown 36:36 /dev/drm/card0 /dev/drm/renderD128

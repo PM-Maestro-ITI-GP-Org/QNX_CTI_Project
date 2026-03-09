@@ -1,0 +1,8 @@
+# post_start.~21.mtouch
+# Start mtouch (touch-screen) input support
+
+if [ -d /dev/screen ]; then
+   echo '---> Starting touch drivers...'
+   mtouch -c /system/etc/system/config/mtouch.conf -r
+fi
+

@@ -1,0 +1,7 @@
+# post_start.~19.fonts
+# Update the font cache on boot when necessary
+ 
+# update the font cache
+if [ ! -e /var/cache/fontconfig/CACHEDIR.TAG ]; then
+   FONTCONFIG_FILE=/etc/fonts/fonts.conf fc-cache &
+fi

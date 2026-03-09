@@ -1,0 +1,10 @@
+# post_start.~96.multimedia
+# Start the mm-renderer process for multimedia playback
+
+/system/sbin/mm-renderer -C /system/etc/mm/mm-renderer.conf
+
+if [ ! -d /dev/mm-renderer ]; then
+    echo ""
+    echo "ERROR: Failed to launch mm-renderer. No multimedia playback will be available."
+    echo ""
+fi

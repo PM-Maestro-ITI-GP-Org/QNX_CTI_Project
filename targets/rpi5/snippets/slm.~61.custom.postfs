@@ -1,0 +1,7 @@
+<!-- copy network settings from boot partition -->
+<SLM:component name="copy-network-settings">
+  <SLM:depend>root-fs</SLM:depend>
+  <SLM:command>copy_settings.sh</SLM:command>
+  <SLM:waitfor wait="exits" />
+</SLM:component>
+

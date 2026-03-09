@@ -1,0 +1,8 @@
+# post_start.~25.io-snd
+# Start io-snd
+
+#######################################################################
+## io-snd startup
+#######################################################################
+echo '---> Starting Audio io-snd driver...'
+io-snd -c /system/etc/system/config/sound/io_snd.conf

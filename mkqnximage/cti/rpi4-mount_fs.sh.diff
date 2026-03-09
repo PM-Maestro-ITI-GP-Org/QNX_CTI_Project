@@ -1,0 +1,64 @@
+diff --git a/mount_fs.sh.orig b/mount_fs.sh
+index 19edaf0..7783ba9 100644
+--- a/mount_fs.sh.orig
++++ b/mount_fs.sh
+@@ -16,7 +16,7 @@ function check_magic
+ 
+ echo "---> Mounting file systems"
+ 
+-if [ -e /data -a -e /system ]; then
++if [ -e /data -a -e /usr ]; then
+ 	exit 0
+ fi
+ 
+@@ -36,32 +36,32 @@ if [ -e /dev/hd0t185 ]; then
+ 	# container and then the file system contained within
+ 	mount -t qtd -o key=/proc/boot/qtd_public_key.pem  /dev/hd0t185 /dev/hd0t185-fs
+ 	if check_magic /dev/hd0t185-fs 8192 "\0042\0021\0031\0150"; then
+-		mount -t qnx6 -o noatime  /dev/hd0t185-fs /system
++		mount -t qnx6 -o noatime  /dev/hd0t185-fs /usr
+ 	elif check_magic /dev/hd0t185-fs 0 "\0377\0272\0377\0261"; then
+-		mount -t qcfs  /dev/hd0t185-fs /system
++		mount -t qcfs  /dev/hd0t185-fs /usr
+ 	else
+ 		echo "Don't recognise the filesystem"
+ 	fi
+ 	rm -f /dev/shmem/fs-magic*
+ elif [ -e /dev/hd0t186 ]; then
+-    qtsafefsd -o key=/proc/boot/qtsafefs_public_key.pem  /dev/hd0t186 /system
++    qtsafefsd -o key=/proc/boot/qtsafefs_public_key.pem  /dev/hd0t186 /usr
+ elif [ -e /dev/hd0t181 ]; then
+-	mount -t qcfs  /dev/hd0t181 /system
++	mount -t qcfs  /dev/hd0t181 /usr
+ else # QNX6
+-	mount -t qnx6 -o noatime  /dev/hd0t178 /system 2>/dev/null
++	mount -t qnx6 -o noatime  /dev/hd0t178 /usr 2>/dev/null
+ 	# We've mounted the system file system opportunistically. If it appears that
+ 	# it was in need of expansion, unmount, expand and remount.
+-	if [ ! -e /system/etc/build.date -o -e /system/needs_expansion ]; then
+-		umount /system 2>/dev/null
++	if [ ! -e /usr/etc/build.date -o -e /usr/needs_expansion ]; then
++		umount /usr 2>/dev/null
+ 		expandfs.sh
+-		mount -t qnx6 -o noatime  /dev/hd0t178 /system 2>/dev/null
+-		rm -f /system/needs_expansion
+-		touch /system/etc/build.date
++		mount -t qnx6 -o noatime  /dev/hd0t178 /usr 2>/dev/null
++		rm -f /usr/needs_expansion
++		touch /usr/etc/build.date
+ 		FS_EXPANDED=1
+ 	fi
+ 	# Perhaps this is really an installer partition.
+-	if [ -e /system/needs_install ]; then
+-		/system/installfs
++	if [ -e /usr/needs_install ]; then
++		/usr/installfs
+ 	fi
+ fi
+ 
+@@ -78,4 +78,4 @@ if [ ! -e /data/var/etc/build.date -o -e /data/needs_expansion ]; then
+ 	touch /data/var/etc/build.date
+ fi
+ 
+-/system/bin/cleanup_tmp
++/usr/bin/cleanup_tmp

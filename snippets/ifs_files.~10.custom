@@ -1,0 +1,24 @@
+
+# general symlinks for FHS compatibility
+[type=link] /usr=/system
+
+[type=link] /home=/data/home
+[type=link] /root=/data/home/root
+
+[type=link] /etc=/data/var/etc
+[type=link] /var=/data/var
+[type=link] /tmp=/data/tmp
+
+[type=link] /dev/console=/dev/ser1
+
+# TODO: review further and re-enable later
+#[type=link] /bin/sh=/proc/boot/ksh
+#[type=link] /bin/login=/proc/boot/login
+#[type=link] /bin/pwd=/proc/boot/toybox
+
+# apk-specific symlinks
+[type=link] /sbin/apk=/usr/bin/apk
+
+[type=link] /bin=/usr/bin
+[type=link] /lib=/usr/lib
+

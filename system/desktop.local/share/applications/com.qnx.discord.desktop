@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Join the QNX Discord server
+Comment=QNX Discord server
+Icon=org.xfce.webbrowser
+Exec=xfce-open --launch WebBrowser https://discord.gg/Jj4EkkrFTT?ref=qnxdevdesktop
+Type=Application
+Categories=WebSupport;

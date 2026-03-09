@@ -1,0 +1,2 @@
+# required for integrating apk_root contents for data partition
+[dperms=755] share/packages=apk_root/data/share/packages

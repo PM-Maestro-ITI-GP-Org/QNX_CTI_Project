@@ -1,0 +1,8 @@
+# post_start.~20.graphics
+# Start screen and the graphics stack
+
+echo '---> Starting Screen...'
+chown __SCREEN_ID__ /dev/io-hid/io-hid
+screen -u __SCREEN_ID__:__SCREEN_ID__ -c /system/lib/graphics/drm-rpi5/graphics-rpi5-2xhdmi.conf >/dev/null 2>&1
+echo drop_privileges > /dev/screen/command
+waitfor /dev/screen/

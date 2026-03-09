@@ -1,0 +1,28 @@
+
+# add parallel toybox links that are currently in /proc/boot to /usr/bin to allow certain apk
+# installations to work correctly
+toybox=usr/bin/toybox
+[type=link] bin/cat=toybox
+[type=link] bin/chmod=toybox
+[type=link] bin/dd=toybox
+[type=link] bin/echo=toybox
+[type=link] bin/ls=toybox
+
+# hacks to workaround ca-certificates apk script bugs
+[type=file] bin/rm={
+#!/bin/bash
+
+if [[ "$1" == "-r" ]]; then
+    /proc/boot/rm -f $@
+else
+    /proc/boot/rm $@
+fi
+}
+
+[type=file] bin/ln={
+#!/bin/bash
+
+if [[ -e "$2" ]]; then
+    /proc/boot/ln $@
+fi
+}

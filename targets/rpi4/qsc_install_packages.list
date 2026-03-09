@@ -1,0 +1,42 @@
+#----------------------------------------------------------------------
+# Additional packages for rpi4 support.
+#
+# These packages are added to the set of common packages defined in the
+# qsc_install_packages.list file in the root of the tree.
+#
+# If the same package is specified in this file and the common one in
+# the root of the tree then the one in this file will win.
+#----------------------------------------------------------------------
+# RaspBerry PI 4 BSP packages
+com.qnx.qnx800.bsp.hw.raspberrypi_bcm2711_rpi4/0.2.0.00334T202507311443L
+com.qnx.qnx800.target.pci.hw.bcm2711/3.0.0.02005T202411230033L
+
+# Sensor Framework experimental packages
+com.qnx.qnx800.target.sf.hw.rpi4/0.3.0.00207T202507171524L
+# The above package depends on
+com.qnx.qnx800.target.sf.camera.imx708/0.3.0.00207T202507171524L
+com.qnx.qnx800.target.sf.hw.bcm.rpi4_isp/0.3.0.00207T202507171524L
+com.qnx.qnx800.target.sf.hw.bcm.rpi4_mbox_interface/0.3.0.00207T202507171524L
+com.qnx.qnx800.target.sf.hw.bcm.rpi4_mmal/0.3.0.00207T202507171524L
+com.qnx.qnx800.target.sf.hw.bcm.rpi4_vchiq/0.3.0.00207T202507171524L
+com.qnx.qnx800.target.sf.hw.bcm.rpi4_vcsm/0.3.0.00207T202507171524L
+com.qnx.qnx800.target.sf.platform.broadcom/0.3.0.00207T202507171524L
+com.qnx.qnx800.target.sf.rpi_isp_tuning_example/0.3.0.00207T202507171524L
+# Add support for the other cameras, just in case
+com.qnx.qnx800.target.sf.camera.imx219/0.3.0.00207T202507171524L
+com.qnx.qnx800.target.sf.camera.imx390/0.3.0.00207T202507171524L
+com.qnx.qnx800.target.sf.camera.ov2312/0.3.0.00207T202507171524L
+
+# Screen / Graphics / HID packages
+com.qnx.qnx800.target.screen.board.rpi/1.0.0.00135T202511211618L
+com.qnx.qnx800.target.screen.board.rpi.mesa/25.1.1.00046T202510100921L
+com.qnx.qnx800.target.screen.board.rpi.server/1.0.0.00083T202511201325L
+
+# Audio support
+com.qnx.qnx800.target.rpi4_snd.src/1.0.0.00247T202506201144L
+
+# WI-FI packages
+com.qnx.qnx800.target.net.wpa_supplicant_2.11.iosock/0.0.5.00007T202509220833L
+com.qnx.qnx800.target.driver.cypress_dhd_sdio/0.0.4.00003T202510060827L
+com.qnx.qnx800.target.driver.cypress_dhd_sdio_rpi4_2_11/0.0.6.03054T202511131755L
+com.qnx.qnx800.target.driver.dhd_utils/0.0.6.03054T202511131755L

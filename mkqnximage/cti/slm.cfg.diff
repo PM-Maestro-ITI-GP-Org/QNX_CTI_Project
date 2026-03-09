@@ -1,0 +1,44 @@
+--- ../../build/qemu/output/build/slm.cfg.orig	2025-08-31 20:37:41.481159095 -0400
++++ ../../build/qemu/output/build/slm.cfg	2025-08-31 21:10:32.024728298 -0400
+@@ -97,10 +97,8 @@
+   </SLM:component>
+ 
+   <SLM:component name="ssh">
+-    <SLM:depend>network-init</SLM:depend>
+-    <SLM:command launch="pathname">/system/bin/sshd</SLM:command>
+-    <SLM:args>-f /system/etc/ssh/sshd_config -D</SLM:args>
+-    
++    <SLM:depend>pam</SLM:depend>
++    <SLM:command launch="pathname">/usr/etc/startup/startup_ssh.sh</SLM:command>
+   </SLM:component>
+ 
+   <SLM:component name="qconn">
+@@ -110,8 +108,8 @@
+   </SLM:component>
+ 
+   <SLM:component name="console">
+-    <SLM:depend>devc</SLM:depend>
+-    <SLM:command launch="session">/proc/boot/ksh</SLM:command>
++    <SLM:depend>apk_start</SLM:depend>
++    <SLM:command launch="session">/system/libexec/qnx/tty-login.sh</SLM:command>
+     <SLM:args>-l</SLM:args>
+     <SLM:tty>/dev/ser1</SLM:tty>
+     
+@@ -126,7 +124,7 @@
+ 
+   <SLM:component name="post_start">
+     <SLM:depend state="stateless">root-fs</SLM:depend>
+-    <SLM:depend state="stateless">ssh</SLM:depend>
++    <SLM:depend state="stateless">network-init</SLM:depend>
+     <SLM:command>/system/etc/startup/post_startup.sh</SLM:command>
+     <SLM:waitfor wait="exit" />
+     
+@@ -174,7 +172,7 @@
+ <SLM:component name="pam">
+   <SLM:depend state="stateless">set-host</SLM:depend>
+   <SLM:depend state="stateless">root-fs</SLM:depend>
+-  <SLM:depend state="stateless">apk_start/SLM:depend>
++  <SLM:depend state="stateless">apk_start</SLM:depend>
+   <SLM:command>/usr/etc/startup/startup_pam.sh</SLM:command>
+   <SLM:waitfor wait="exit" />
+ </SLM:component>

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=QNX on GitHub
+Comment=QNX on GitHub
+Icon=org.xfce.webbrowser
+Exec=xfce-open --launch WebBrowser https://github.com/qnx
+Type=Application
+Categories=WebResources;

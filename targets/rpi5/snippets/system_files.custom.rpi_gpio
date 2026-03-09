@@ -1,0 +1,14 @@
+[type=file uid=0 gid=0 perms=0755] bin/rpi_gpio=sbin/rpi_gpio
+[type=dir uid=0 gid=0 dperms=0755] lib/python
+
+[type=file uid=0 gid=0 perms=0755] lib/python3.14/lib-dynload/rpi_gpio.cpython-314.so=lib/python3.14/lib-dynload/rpi_gpio.cpython-314.so
+[type=file uid=0 gid=0 perms=0755] lib/python3.14/lib-dynload/smbus.cpython-314.so=lib/python3.14/lib-dynload/smbus.cpython-314.so
+
+[dperms=755] share/gpioctrl=usr/share/gpioctrl
+[type=file uid=0 gid=0 perms=0755] share/gpioctrl/gpioctrl=bin/gpioctrl
+[type=file uid=0 gid=0 perms=0755] bin/gpioctrl={
+#!/bin/bash
+
+cd /usr/share/gpioctrl
+./gpioctrl
+}

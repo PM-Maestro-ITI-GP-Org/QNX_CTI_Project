@@ -1,0 +1,2 @@
+# desktop support integration
+[type=dir] var/etc/xdg/weston

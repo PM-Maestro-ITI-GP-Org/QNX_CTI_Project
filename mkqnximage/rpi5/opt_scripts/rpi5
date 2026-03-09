@@ -1,0 +1,60 @@
+#!/bin/bash
+
+. $TOOL_DIR/functions
+
+function validate()
+{
+	status=0
+	missing=()
+	for f in \
+			bcm2712-d-rpi-5-b.dtb \
+			bcm2712-rpi-500.dtb \
+			bcm2712-rpi-5-b.dtb \
+			bcm2712-rpi-cm5-cm4io.dtb \
+			bcm2712-rpi-cm5-cm5io.dtb \
+			bcm2712-rpi-cm5l-cm4io.dtb \
+			bcm2712-rpi-cm5l-cm5io.dtb; do
+		if ! check_dependency $f; then
+			missing+=($f)
+		fi
+	done
+	if [ "${#missing[@]}" -gt 0 ]; then
+		sep=
+		echo -n "Missing Raspberry Pi 5 firmware files: "
+		for f in ${missing[@]}; do
+			echo -n $sep $f
+			sep=", "
+		done
+		echo
+		echo Perhaps add the directory containing the firmware to the list of directories
+		echo for the --repos option.
+		status=1
+	fi
+	if [ "${OPT_PART_SIZES}" = full ]; then
+		echo "Need to set the partition sizes using --part-sizes=<boot>:<system>[:<data>]"
+		status=1
+	fi
+	exit $status
+}
+
+function configure()
+{
+	# Set up the generation of the wpa_supplicant.conf file based on wifi.*
+	# snippets
+	cat > output/option_files/options.rpi5 <<EOF
+EXTRA_FILE_PREFIX=(wifi)
+GENERATE_SCRIPT="${BASH_SOURCE[0]}"
+EOF
+	cat > output/option_files/generate.rpi5 <<EOF
+generate_file "${TOOL_DIR}/inputs/wpa_supplicant.conf"
+EOF
+
+	exit 0
+}
+
+case "$1" in
+	validate)
+		validate;;
+	configure)
+		configure;;
+esac

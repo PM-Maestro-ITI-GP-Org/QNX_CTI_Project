@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=QNX Developer Blog
+Comment=The QNX Developer Blog
+Icon=org.xfce.webbrowser
+Exec=xfce-open --launch WebBrowser https://devblog.qnx.com/?ref=qnxdevdesktop
+Type=Application
+Categories=WebResources;

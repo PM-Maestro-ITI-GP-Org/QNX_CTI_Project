@@ -1,0 +1,12 @@
+# Things that are in /proc/boot in the rpi4 image
+sbin/getty=sbin/getty
+
+################################################################
+# Browser packages
+################################################################
+
+# <com.qnx.qnx800.target.utils.libunwind>
+[type=file uid=0 gid=0 perms=0444] lib/libunwind-x86_64.so.8=usr/lib/libunwind-x86_64.so.8
+[type=link uid=0 gid=0 perms=0755] lib/libunwind-x86_64.so=libunwind-x86_64.so.8
+[type=link uid=0 gid=0 perms=0755] lib/libunwind-generic.so=libunwind-x86_64.so
+

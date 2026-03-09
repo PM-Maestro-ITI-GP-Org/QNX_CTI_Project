@@ -1,0 +1,37 @@
+gpio-rp1=bin/gpio-rp1
+msix-rp1=bin/msix-rp1
+wdtkick=bin/wdtkick
+devc-serpl011-rpi5=sbin/devc-serpl011-rpi5
+devb-sdmmc-bcm2712=sbin/devb-sdmmc-bcm2712
+toybox=usr/bin/toybox
+sbin/getty
+
+# Serial driver requires libfdt
+libfdt.so.1=usr/lib/libfdt.so.1
+
+[uid=0 gid=0 perms=0444] pci_hw-bcm2712-rpi5.cfg = {
+######################################  S E C T I O N  #########################################
+##
+[PI5]
+##
+## Pi 5 PCIe HW module configuration
+## --------------------------------
+##
+
+## PCIe gen speed configuration for the extension port
+MAX_GEN_SPEED=3
+}
+
+# This file can be used to configure pci-server via the --config option
+pci_server.cfg = {
+[buscfg]
+
+[runtime]
+BUS_SCAN_LIMIT=3
+
+[envars]
+PCI_HW_MODULE=pci_hw-bcm2712-rpi5.so
+PCI_HW_CONFIG_FILE=/proc/boot/pci_hw-bcm2712-rpi5.cfg
+PCI_DEBUG_MODULE=pci_debug2.so
+
+}

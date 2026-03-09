@@ -1,0 +1,172 @@
+# Configuration for demolauncher
+
+# Images
+[type=file uid=0 gid=0 perms=0444] etc/images/background_720p.png=backgrounds/local/background_720p.png
+[type=file uid=0 gid=0 perms=0444] etc/images/background_1080p.png=backgrounds/local/background_1080p.png
+[type=file uid=0 gid=0 perms=0444] share/icons/qnx_everywhere_logo.png=icons/local/qnx_everywhere_logo.png
+
+# Configure the 'icons'
+[type=file uid=0 gid=0 perms=0644] etc/desktop_files/terminal.desktop={
+[Desktop Entry]
+Name=Terminal
+Exec=/usr/bin/st /usr/etc/st_boot.sh
+Icon=/usr/share/icons/qnx/terminal_large_coral.png
+Categories=Utilities
+}
+
+[type=file uid=0 gid=0 perms=0644] etc/desktop_files/gtk4.desktop={
+[Desktop Entry]
+Name=GTK4Demo
+Exec=/usr/bin/startGTK4Demo.sh
+Icon=/usr/share/icons/qnx/cube_large_coral.png
+Categories=Utilities
+}
+
+[type=file uid=0 gid=0 perms=0644] etc/desktop_files/qnx_dev_desktop.desktop={
+[Desktop Entry]
+Name=Developer Desktop
+Exec=/usr/bin/sudo -i -u qnxuser /bin/bash -l -c /usr/bin/startDesktop.sh
+Icon=/usr/share/icons/qnx/computer_large_coral.png
+Categories=Utilities
+}
+
+[type=file uid=0 gid=0 perms=0644] etc/desktop_files/start.desktop={
+[Desktop Entry]
+Name=Readme
+Exec=/usr/bin/st /usr/etc/desktop_files/display_readme.sh
+Icon=/usr/share/icons/qnx/contact_large_coral.png
+Categories=Utilities
+}
+
+[type=file uid=0 gid=0 perms=0644] etc/desktop_files/gears.desktop={
+[Desktop Entry]
+Name=Gears
+Exec=/usr/bin/gles3-gears
+Icon=/usr/share/icons/qnx/gears_large_coral.png
+Categories=Utilities
+}
+
+[type=file uid=0 gid=0 perms=0644] etc/desktop_files/maze.desktop={
+[Desktop Entry]
+Name=Maze
+Exec=/usr/bin/gles2-maze
+Icon=/system/share/icons/qnx/maze_large_coral.png
+Categories=Utilities
+}
+
+# Configure the layout and additional information
+[type=file uid=0 gid=0 perms=0644] etc/desktop_files/desktop.conf={
+# Global configs
+LogoIcon=/usr/share/icons/qnx_everywhere_logo.png
+LogoText=Non-Commercial
+LogoTextFontSize=11
+LogoTextColor=ffff443a
+BottomBannerText=Use Alt+TAB to switch windows | Use Alt+TAB+Del to close windows
+BottomBannerBox=true
+RowOneHeader=Welcome! Quick Start QNX 8.0 Target is now running
+RowTwoHeader=QNX Sample Applications
+
+[Launcher]
+DesktopFileName=gears.desktop
+BackgroundIcon=/usr/share/icons/grey_large.png
+DisplayName=false
+Row=2
+Order=5
+
+[Launcher]
+DesktopFileName=gtk4.desktop
+BackgroundIcon=/usr/share/icons/grey_large.png
+DisplayName=false
+Row=2
+Order=4
+
+[Launcher]
+DesktopFileName=maze.desktop
+BackgroundIcon=/usr/share/icons/grey_large.png
+DisplayName=false
+Row=2
+Order=6
+
+[Launcher]
+DesktopFileName=qnx_dev_desktop.desktop
+FontSize=18
+AdditionalFontSize=20
+BackgroundIcon=/usr/share/icons/grey_rectangle_large.png
+DisplayName=true
+Row=1
+Height=120
+Width=120
+BackgroundHeight=140
+BackgroundWidth=350
+TextLocation=right
+AdditionalText=Start Here
+AdditionalTextColor=ffff443a
+Order=1
+
+[Launcher]
+DesktopFileName=start.desktop
+BackgroundIcon=/usr/share/icons/grey_large.png
+DisplayName=true
+Row=1
+Width=120
+Height=120
+BackgroundHeight=140
+BackgroundWidth=150
+Order=3
+
+[Launcher]
+DesktopFileName=terminal.desktop
+BackgroundIcon=/usr/share/icons/grey_large.png
+DisplayName=true
+Row=1
+Width=120
+Height=120
+BackgroundHeight=140
+BackgroundWidth=150
+Order=2
+}
+
+# Readme used by the start.desktop app
+[type=file perms=644] etc/desktop_files/README.txt={
+Welcome to QNX 8.0 Non-Commercial!
+
+This QNX 8 target is now ready for your QNX applications. There are
+some sample applications included here to help you get started with
+development. Find the source code for most of them at gitlab.com/qnx.
+
+Here's how to run some of the bundled samples:
+
+|-------------------------------|----------------------------------------------------------|
+| $ gles2-gears                 | Displays hardware-rendered content using OpenGL ES 2.x.  |
+| $ gles2-maze                  | Shows how to use texture, vertex, and fragment shaders.  |
+| $ camera_example3_viewfinder  | Displays a simulated camera signal or live camera feed.  |
+| $ st                          | The default terminal. Run it to open a new instance.     |
+|-------------------------------|----------------------------------------------------------|
+
+(You can use ALT-TAB to switch between windows.)
+
+To get Started
+ - Try the developer desktop to compile apps directly on QNX
+ - Target and Host system users connect over SSH or serial terminal and setup
+   Momentics or VS Code IDE
+
+Documentation
+ - Visit qnx.com/developer/docs/qnxeverywhere/ for technical documentation
+ - Visit github.com/qnx for sample app source code
+ - Visit oss.qnx.com for list of open-source ports
+
+Community Feedback
+ - Find the community in Discord at https://discord.gg/Jj4EkkrFTT, 
+   on Reddit at https://reddit.com/r/QNX, or log an issue 
+   at https://gitlab.com/qnx.
+}
+
+[type=file perms=755] etc/desktop_files/display_readme.sh={
+#!/bin/bash
+
+clear
+cat /system/etc/desktop_files/README.txt | more
+echo "Press any key to exit..."
+read -n 1 -s
+exit
+}

@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Self-Hosted Developer Desktop Guide
+Comment=The QNX Everywhere Documentation
+Icon=org.xfce.webbrowser
+Exec=xfce-open --launch WebBrowser https://www.qnx.com/developers/docs/qnxeverywhere/com.qnx.doc.qdd/topic/about.html
+Type=Application
+Categories=WebResources;

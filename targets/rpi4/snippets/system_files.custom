@@ -1,0 +1,73 @@
+################################################################
+# RPi HW support
+################################################################
+bin/gpio-bcm2711=bin/gpio-bcm2711
+#bin/i2c-bcm2711=sbin/i2c-bcm2711
+bin/i2c-bcm2711=aarch64le/sbin/i2c-bcm2711
+bin/spi-bcm2711=aarch64le/sbin/spi-bcm2711
+etc/config/spi/spi.conf=etc/config/spi/spi.conf
+
+[type=file uid=0 gid=0 perms=0755] bin/rpi_mbox=sbin/rpi_mbox
+[type=file uid=0 gid=0 perms=0755] bin/rpi_thermal=sbin/rpi_thermal
+
+################################################################
+# WIFI SUPPORT
+################################################################
+lib/libjail.so.1=lib/libjail.so.1
+
+################################################################
+# screen packages
+################################################################
+# <com.qnx.qnx800.target.screen.base>
+[type=file uid=0 gid=0 perms=0555] bin/vk-gears=usr/bin/vk-gears
+[type=file uid=0 gid=0 perms=0555] bin/vk-maze=usr/bin/vk-maze
+[type=file uid=0 gid=0 perms=0555] bin/vk-teapot=usr/bin/vk-teapot
+
+# <com.qnx.qnx800.target.screen.device_input_screen>
+[type=file uid=0 gid=0 perms=0555] bin/calib-touch=usr/bin/calib-touch
+[type=file uid=0 gid=0 perms=0555] bin/mtouch=usr/sbin/mtouch
+[type=file uid=0 gid=0 perms=0644] etc/system/config/mtouch.conf=etc/system/config/mtouch.conf
+# comment out above line and enable line below for Waveshare WS170120 touch screen
+#[type=file uid=0 gid=0 perms=0644] etc/system/config/mtouch.conf=etc/system/config/mtouch_ws170120.conf
+
+# <com.qnx.qnx800.target.screen.device_input>
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-calib.so.1=lib/libmtouch-calib.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-devi.so.1=lib/libmtouch-devi.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-fake.so.1=lib/libmtouch-fake.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-hid.so.1=lib/libmtouch-hid.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-inject.so.1=lib/libmtouch-inject.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-fd.so.1=lib/libmtouch-fd.so.1
+[type=file uid=0 gid=0 perms=0644] etc/system/config/scaling.conf=etc/system/config/scaling.conf
+[type=link uid=0 gid=0 perms=0755] lib/libgestures.so=libgestures.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libinputevents.so=libinputevents.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-calib.so=libmtouch-calib.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-devi.so=libmtouch-devi.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-fake.so=libmtouch-fake.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-hid.so=libmtouch-hid.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-inject.so=libmtouch-inject.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-fd.so=libmtouch-fd.so.1
+
+# <com.qnx.qnx800.target.screen.vulkan.sdk>
+[type=file uid=0 gid=0 perms=0555] bin/glslangValidator=usr/bin/glslangValidator
+[type=file uid=0 gid=0 perms=0555] bin/spirv-as=usr/bin/spirv-as
+[type=file uid=0 gid=0 perms=0555] bin/spirv-cfg=usr/bin/spirv-cfg
+[type=file uid=0 gid=0 perms=0555] bin/spirv-cross=usr/bin/spirv-cross
+[type=file uid=0 gid=0 perms=0555] bin/spirv-diff=usr/bin/spirv-diff
+[type=file uid=0 gid=0 perms=0555] bin/spirv-dis=usr/bin/spirv-dis
+[type=file uid=0 gid=0 perms=0555] bin/spirv-link=usr/bin/spirv-link
+[type=file uid=0 gid=0 perms=0555] bin/spirv-lint=usr/bin/spirv-lint
+[type=file uid=0 gid=0 perms=0555] bin/spirv-opt=usr/bin/spirv-opt
+[type=file uid=0 gid=0 perms=0555] bin/spirv-reduce=usr/bin/spirv-reduce
+[type=file uid=0 gid=0 perms=0555] bin/spirv-reflect=usr/bin/spirv-reflect
+[type=file uid=0 gid=0 perms=0555] bin/spirv-remap=usr/bin/spirv-remap
+[type=file uid=0 gid=0 perms=0555] bin/spirv-val=usr/bin/spirv-val
+
+################################################################
+# Browser packages
+################################################################
+
+# <com.qnx.qnx800.target.utils.libunwind>
+[type=file uid=0 gid=0 perms=0444] lib/libunwind-aarch64.so.8=usr/lib/libunwind-aarch64.so.8
+[type=link uid=0 gid=0 perms=0755] lib/libunwind-aarch64.so=libunwind-aarch64.so.8
+[type=link uid=0 gid=0 perms=0755] lib/libunwind-generic.so=libunwind-aarch64.so
+

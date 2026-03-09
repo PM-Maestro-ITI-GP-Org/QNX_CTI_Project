@@ -1,0 +1,46 @@
+[uid=0 gid=0 perms=0444] __PCI_RPI5_HW_CONFIG_FILE__ = {
+######################################  S E C T I O N  #########################################
+##
+[PI5]
+##
+## Pi 5 PCIe HW module configuration
+## --------------------------------
+##
+
+## PCIe gen speed configuration for the extension port
+MAX_GEN_SPEED=3
+}
+[type=link] pci_hw.cfg=__PCI_RPI5_HW_CONFIG_FILE__
+
+# Additional PCI/PCIe files that the RPI5 BSP pulls in
+pci_bkwd_compat.so=lib/dll/pci/pci_bkwd_compat.so
+pci_cap-0x01.so=lib/dll/pci/pci_cap-0x01.so
+pci_cap-0x04.so=lib/dll/pci/pci_cap-0x04.so
+pci_cap-0x05.so=lib/dll/pci/pci_cap-0x05.so
+pci_cap-0x07.so=lib/dll/pci/pci_cap-0x07.so
+pci_cap-0x09-ffffffff.so=lib/dll/pci/pci_cap-0x09-ffffffff.so
+pci_cap-0x0d.so=lib/dll/pci/pci_cap-0x0d.so
+pci_cap-0x10-16c3abcd.so=lib/dll/pci/pci_cap-0x10-16c3abcd.so
+pci_cap-0x10-19570400.so=lib/dll/pci/pci_cap-0x10-19570400.so
+pci_cap-0x10.so=lib/dll/pci/pci_cap-0x10.so
+pci_cap-0x11-ffffffff.so=lib/dll/pci/pci_cap-0x11-ffffffff.so
+pci_cap-0x11.so=lib/dll/pci/pci_cap-0x11.so
+pci_cap-0x12.so=lib/dll/pci/pci_cap-0x12.so
+pci_cap-0x13.so=lib/dll/pci/pci_cap-0x13.so
+pci_debug.so=lib/dll/pci/pci_debug.so
+pci_debug2.so=lib/dll/pci/pci_debug2.so
+pci_server-buscfg-generic.so=lib/dll/pci/pci_server-buscfg-generic.so
+pci_server-buscfg-hotplug.so=lib/dll/pci/pci_server-buscfg-hotplug.so
+pci_server-buscfg2-generic.so=lib/dll/pci/pci_server-buscfg2-generic.so
+pci_server-buscfg2-hotplug.so=lib/dll/pci/pci_server-buscfg2-hotplug.so
+pci_server-enable_features.so=lib/dll/pci/pci_server-enable_features.so
+pci_server-event_handler.so=lib/dll/pci/pci_server-event_handler.so
+pci_server-namespace.so=lib/dll/pci/pci_server-namespace.so
+pci_slog.so=lib/dll/pci/pci_slog.so
+pci_slog2.so=lib/dll/pci/pci_slog2.so
+pci_strings.so=lib/dll/pci/pci_strings.so
+pcie_xcap-0x0001.so=lib/dll/pci/pcie_xcap-0x0001.so
+pcie_xcap-0x0003.so=lib/dll/pci/pcie_xcap-0x0003.so
+pcie_xcap-0x000b-ffffffff.so=lib/dll/pci/pcie_xcap-0x000b-ffffffff.so
+pcie_xcap-0x0015.so=lib/dll/pci/pcie_xcap-0x0015.so
+

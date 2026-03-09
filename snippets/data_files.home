@@ -1,0 +1,59 @@
+# local config folders
+[type=dir uid=1000 gid=1000 dperms=0700] home/qnxuser/.cache
+[uid=1000 gid=1000 dperms=0700] home/qnxuser/.config=desktop.config
+[uid=1000 gid=1000 dperms=0700] home/qnxuser/.local=desktop.local
+[type=dir uid=1000 gid=1000] home/qnxuser/.local/bin
+[type=dir uid=1000 gid=1000] home/qnxuser/.local/lib
+[type=dir uid=1000 gid=1000 dperms=0700] home/qnxuser/.local/state
+
+# local bin / lib and tmp folders
+[type=dir uid=1000 gid=1000] home/qnxuser/bin
+[type=dir uid=1000 gid=1000] home/qnxuser/lib
+[type=dir uid=1000 gid=1000] home/qnxuser/lib/dll
+[type=dir uid=1000 gid=1000] home/qnxuser/tmp
+
+# integrate repos and projects
+[uid=1000 gid=1000 dperms=0700] home/qnxuser/repos=qnxuser_repos
+[uid=1000 gid=1000 dperms=0700] home/qnxuser/projects=qnxuser_projects
+[uid=1000 gid=1000 dperms=0700] home/qnxuser/solutions=qnxuser_solutions
+
+[uid=1000 gid=1000] home/qnxuser/.profile = {
+export PATH=/data/home/qnxuser/.local/bin:/data/home/qnxuser/bin:$PATH
+export LD_LIBRARY_PATH=/data/home/qnxuser/.local/lib:/data/home/qnxuser/lib:$LD_LIBRARY_PATH
+export FONTCONFIG_PATH=/etc/fonts
+export ALSA_CONFIG_PATH=/usr/etc/alsa/alsa.conf
+
+# TODO: not sure if we need this or not ...
+export TMPDIR=/data/home/qnxuser/tmp
+}
+
+[uid=1000 gid=1000] home/qnxuser/.curlrc = {
+cacert = /etc/ssl/certs/cacert.pem
+}
+
+home/root/.profile = {
+export PATH=/data/home/root/.local/bin:$PATH
+export LD_LIBRARY_PATH=/data/home/root/.local/lib:$LD_LIBRARY_PATH
+export FONTCONFIG_PATH=/etc/fonts
+export ALSA_CONFIG_PATH=/usr/etc/alsa/alsa.conf
+
+export TMPDIR=/data/home/root/tmp
+}
+
+home/root/.curlrc = {
+cacert = /etc/ssl/certs/cacert.pem
+}
+
+# local config folders
+[type=dir dperms=0700] home/root/.cache
+[dperms=0700] home/root/.config=desktop.config
+[dperms=0700] home/root/.local=desktop.local
+[type=dir dperms=0700] home/root/.local/state
+[type=dir] home/root/.local/bin
+[type=dir] home/root/.local/lib
+
+# local bin / lib and tmp folders
+[type=dir] home/root/bin
+[type=dir] home/root/lib
+[type=dir] home/root/lib/dll
+[type=dir uid=0 gid=0] home/root/tmp

@@ -1,0 +1,9 @@
+# definitions.type_raspi_patch
+
+#undef __DEVB_OPTS__
+#define __DEVB_OPTS__ mem name=below1G sdio addr=0xfe340000,irq=158,timing=~hs:~ddr
+
+#define __WIFIDRIVER__ -o config=/system/etc/io-sock/io-sock.conf -d qwdi_dhd_sdio-2_11-rpi4
+#define __WIFIDEVICE__ bcm0
+
+#define __STARTUP_OPTS__ -r 0,4096,1

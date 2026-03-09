@@ -1,0 +1,86 @@
+#!/bin/bash
+# While not providing an option, this script is still run along with other option scripts.
+#
+# It provides a way to hook mkqnximage after it does its initial generation
+
+function configure()
+{
+    rc=0
+
+    # Generate hook so that this gets called with 'generate'
+    cat >>output/option_files/options.cti <<EOF
+GENERATE_SCRIPT="${BASH_SOURCE[0]}"
+BUILD_SCRIPT="${BASH_SOURCE[0]}"
+EOF
+}
+
+function postgen()
+{
+    # By default, mkqnximage creates a passwd file that uses /bin/sh.
+    # We want it to be /bin/bash so post-process it now.
+    if [ -e output/build/passwd ]; then
+        echo "CTI: Post-processing output/build/passwd"
+        sed -i "s/\/bin\/sh/\/bin\/bash/" output/build/passwd
+    fi
+
+    PATCH_PATH=`dirname ${BASH_SOURCE[0]}`
+    PATCH_TARGET=`cat $PATCH_PATH/../../../qnx800/cti_package_set`
+
+    # modify system.build to remove some toybox replacements that are not required when we preinstall
+    # a base set of apks, and remove some pam configuration entries that need to be moved to data partition
+    if [ -e output/build/system.build ]; then
+        echo "CTI: Patching output/build/system.build to make compatibility changes for apk pre-installation"
+        patch -b -u -F 1000 output/build/system.build $PATCH_PATH/../system.build.diff
+    fi
+
+    # modify ifs.build to adjust for mounting system partition as /usr
+    if [ -e output/build/ifs.build ]; then
+        echo "CTI: Patching output/build/ifs.build to adjust for mounting system partition as /usr"
+        patch -b -u -F 1000 output/build/ifs.build $PATCH_PATH/../ifs.build.diff
+        sed -i "s/\/x86_64=/\/${OPT_ARCH}=/" output/build/ifs.build
+    fi
+
+    # modify data.build to move pam configuration files to /data/var/etc/pam.d
+    if [ -e output/build/data.build ]; then
+        echo "CTI: Patching output/build/ifs.build to adjust for mounting system partition as /usr"
+        patch -b -u -F 1000 output/build/data.build $PATCH_PATH/../data.build.diff
+    fi
+
+    # modify slm.cfg to launch a more typical Linux style login on the console and modify sshd launch
+    if [ -e output/build/slm.cfg ]; then
+        echo "CTI: Patching output/build/slm.cfg to launch Linux style login on console and modify sshd launch"
+        patch -b -u -F 1000 output/build/slm.cfg $PATCH_PATH/../slm.cfg.diff
+    fi
+
+    # modify mount_fs.sh to mount system partition as /usr
+    if [ -e output/build/mount_fs.sh ]; then
+        echo "CTI: Patching output/build/mount_fs.sh to mount system partition as /usr"
+        PATCH_WTARG="${PATCH_PATH}/../${PATCH_TARGET}-mount_fs.sh.diff"
+        patch -b -u -F 1000 output/build/mount_fs.sh "${PATCH_WTARG}"
+    fi
+
+    # modify startup.sh to modify sshd launch
+    if [ -e output/build/startup.sh ]; then
+        echo "CTI: Patching output/build/startup.sh to modify sshd launch"
+        patch -b -u -F 1000 output/build/startup.sh $PATCH_PATH/../startup.sh.diff
+        echo "CTI: Post-processing output/build/startup.sh"
+        sed -i 's/ksh -l/-e HOME=\/proc\/boot\/serial_console ksh -l/' \
+            output/build/startup.sh
+    fi
+}
+
+function postbuild()
+{
+    PATCH_PATH=`dirname ${BASH_SOURCE[0]}`
+
+    # in case we need to apply patches post-build ...
+}
+
+case "$1" in
+	configure)
+		configure;;
+	postgen)
+		postgen;;
+	postbuild)
+		postbuild;;
+esac

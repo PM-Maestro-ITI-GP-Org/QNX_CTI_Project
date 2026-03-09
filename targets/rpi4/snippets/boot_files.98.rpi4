@@ -1,0 +1,20 @@
+# In order to support multiple-display on the RPI4, a max_framebuffer
+# option needs to be added to config.txt.
+#
+# Until mkqnximage adds it for us, we have to replace the config.txt
+# it automatically generates with our own that has the additional
+# option added.
+#
+# Once mkqnximage has been updated, this file can be deleted.
+# (Assuming no other overrides are added by then)
+
+config.txt = {
+arm_64bit=1
+cmdline=startup.txt
+device_tree=bcm2711-rpi-4-b.dtb
+enable_uart=1
+force_turbo=1
+kernel=qnx_sdp.ifs
+
+max_framebuffers=2
+}

@@ -1,0 +1,47 @@
+# post_start.~30.sensor_framework
+# Start sensor framework
+
+echo '---> Initializing camera support...'
+# i2c6 is used by camera
+# Enable RP1 MSIX I2C6/MIPI0/MIPI1 interrupts
+msix-rp1 --mode=config 13lll,47,48
+gpio-rp1 set 38 a3 pu
+gpio-rp1 set 39 a3 pu
+/system/bin/i2c-dwc-rpi5 -p0x1f00088000 -c200000000 -q0xad --u6
+waitfor /dev/i2c6
+
+# Enable CSI2 PiSP Frontend
+gpio-rp1 set 34 op dh pd
+
+if [ -d /dev/screen ]; then
+    echo '---> Starting sensor framework...'
+
+    # There can only be 1 instance of sensor simultaneously.
+    # Only 1 of the sensor commands below must be uncommented.
+
+    # Camera Module 3
+    #sensor -U 521:521 -b external -r /data/share/sensor -c /system/etc/config/sensor/camera_module3.conf
+
+    # Video playback of simulator camera i.e. color bars
+    #sensor -U 521:521 -b external -r /data/share/sensor -c /system/etc/config/sensor/video_playback.conf
+
+    # USB camera
+    #sensor -U 521:521 -r /data/share/sensor -c /system/etc/config/sensor/usb_camera.conf
+
+    # USB camera MJPEG format - display with mjpeg_example
+    #sensor -U 521:521 -r /data/share/sensor -c /system/etc/config/sensor/usb_camera_jpeg.conf
+
+    # USB3 vision camera
+    #sensor -U 521:521 -r /data/share/sensor -c /system/etc/config/sensor/u3v_camera.conf
+
+    # Simulator camera i.e. color bars
+    sensor -U 521:521 -b external -r /data/share/sensor -c /system/etc/config/sensor/sensor_demo.conf
+
+    # Intel D435 depth camera - z16 depth map and ycbycr color image
+    #sensor -U 521:521 -r /data/share/sensor -c /system/etc/config/sensor/d435_z16_ycbycr.conf
+
+    # Intel D435 depth camera - rgb565 depth map image and ycbycr color image
+    #sensor -U 521:521 -r /data/share/sensor -c /system/etc/config/sensor/d435_rgb565_ycbycr.conf
+
+    waitfor /dev/sensor/camera1
+fi

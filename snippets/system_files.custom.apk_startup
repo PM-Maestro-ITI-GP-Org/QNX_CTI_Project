@@ -1,0 +1,175 @@
+# apk startup checks script
+[uid=0 gid=0 perms=0555] etc/startup/full_startup.sh = {
+#!/bin/sh
+
+waitfor /dev/screen/
+if [ -d /dev/screen ]; then
+    echo '---> Starting Window Manager...'
+    lottie-player -d 1 -A /system/etc/startup/qnx.json
+
+    # enable lines below to run the fullscreen-winmgr
+    echo "Using Full Screen Window Manager..."
+    fullscreen-winmgr -d -s demolauncher,st,gtk &
+fi
+
+if [ ! -f /usr/etc/startup/first_startup_checks.lock ]; then
+  export TERM=xterm-256color
+  st -e /usr/etc/startup/first_startup_checks.sh
+fi
+
+if [ -d /dev/screen ]; then
+    echo '---> Starting Demolauncher...'
+    # enable lines below to run the demolauncher
+    demolauncher -a /system/etc/desktop_files &
+fi
+}
+
+[uid=0 gid=0 perms=0555] etc/startup/first_startup_checks.sh = {
+#!/bin/sh
+
+# enable lines below to print MOTD art in window before first_startup_checks.lockup
+# if [ -f /etc/motd_art ]; then
+#     cat /etc/motd_art
+# fi
+
+RET=1
+while [ "$RET" != 0 ]; do
+  /usr/etc/startup/startup_checks.sh
+  RET=$?
+done
+}
+
+[uid=0 gid=0 perms=0555] etc/startup/startup_checks.sh = {
+#!/bin/sh
+
+# backup LD_LIBRARY_PATH and change to make apk function correctly
+CURR_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/lib/dll:$CURR_LD_LIBRARY_PATH
+
+# check if there are outstanding triggers to run
+if ! [[ -f /lib/apk/rerun-post-installs.lock ]]; then
+    echo "--> Checking system software..."
+    cd /lib/apk/exec
+    tar xf /lib/apk/db/scripts.tar 
+
+    while IFS= read -r trigger; do
+        # extract digest for the software package
+        digest=$(echo "$trigger" | cut -d' ' -f1)
+        # extract arguments to pass to the trigger
+        args=$(echo "$trigger" | cut -d' ' -f2)
+        args=$args" "$(echo "$trigger" | cut -d' ' -f3)
+        args=$args" "$(echo "$trigger" | cut -d' ' -f4)
+        args=$args" "$(echo "$trigger" | cut -d' ' -f5)
+        # look up the name of the software package
+        pkgname=$(grep -A 10 "$digest" /usr/lib/apk/db/installed | grep -m 1 "P:" | cut -d':' -f2)
+        # extract the trigger for the software package
+        cmd=$(find . -name "$pkgname*.trigger")
+        echo "    Running triggers for $pkgname..."
+        sh -e -c "$cmd $args"
+    done < /usr/lib/apk/db/triggers
+
+    echo "    Running post-install triggers..."
+    for trigger in *.post-install; do
+        sh -e "$trigger"
+    done
+    rm /lib/apk/exec/*
+    touch /lib/apk/rerun-post-installs.lock
+
+    echo "    Software checks complete."
+fi
+
+if [ ! -f /usr/etc/startup/first_startup_checks.lock ]; then
+    # checking system date to confirm if we need to force a time update
+    echo "--> Checking that the system date is updated ..."
+    TEST_DATE=`date | grep 1970`
+    if [ ! -z "$TEST_DATE" ]; then
+        echo "    Updating system date..."
+        ntpdate -u `echo $TIME_SERVERS | sed 's/:/ /g'`
+    fi
+
+    # if ntpdate is not working, set the date to the build date to
+    # complete setup
+    TEST_DATE=`date | grep 1970`
+    if [ ! -z "$TEST_DATE" ]; then
+        echo "    WARNING: System date failed to update."
+        echo ""
+        echo "    Please connect to a network with Internet access"
+        echo "    to update the system date and access online resources."
+        echo ""
+
+        echo ""
+        echo "    Setting system date to build date to proceed with Python setup..."
+        date `cat /usr/etc/version.txt | cut -d':' -f1`
+        # now it is safe to setup Python ...
+    else
+        echo "    System date is updated."
+    fi
+
+    /usr/etc/startup/setup_python.sh
+
+    touch /usr/etc/startup/first_startup_checks.lock
+fi
+
+# make APKINDEX.tar.gz readable so we don't get errors when running apk list
+# without sudo
+chmod 755 /data/share/packages/*/*/*/APKINDEX.tar.gz
+
+# restore LD_LIBRARY_PATH back to back to previous value
+export LD_LIBRARY_PATH=$CURR_LD_LIBRARY_PATH
+}
+
+# ca certificates extract script (for ca-certificates apk package)
+[uid=0 gid=0 perms=0555] etc/startup/ca_certificates_extract.sh = {
+#!/bin/sh
+
+# backup LD_LIBRARY_PATH and change to make apk function correctly
+CURR_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+CURR_PATH=$PATH
+
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/lib/dll:$CURR_LD_LIBRARY_PATH
+export PATH=/usr/lib/libweston-14:/usr/local/bin:/usr/bin:__IFS_PATH__
+
+# extract CA certificates
+/usr/bin/update-ca-trust extract --init
+
+# restore LD_LIBRARY_PATH back to back to previous value
+export LD_LIBRARY_PATH=$CURR_LD_LIBRARY_PATH
+export PATH=$CURR_PATH
+}
+
+# pam startup script
+[uid=0 gid=0 perms=0555] etc/startup/startup_pam.sh = {
+#!/bin/sh
+
+# backup LD_LIBRARY_PATH and change to make apk function correctly
+CURR_LD_LIBRARY_PATH=$LD_LIBRARY_PATH
+
+export LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/lib/dll:$CURR_LD_LIBRARY_PATH
+
+# setup pam
+/usr/libexec/qnx/setup-pam.sh
+
+# restore LD_LIBRARY_PATH back to back to previous value
+export LD_LIBRARY_PATH=$CURR_LD_LIBRARY_PATH
+}
+
+# sshd startup script
+[uid=0 gid=0 perms=0555] etc/startup/startup_ssh.sh = {
+#!/bin/sh
+
+if [ ! -f /etc/ssh/ssh_host_rsa_key ]; then
+    ssh-keygen -q -t rsa -N '' -f /etc/ssh/ssh_host_rsa_key
+    chown 0:0 /etc/ssh/ssh_host_rsa_key*
+fi
+if [ ! -f /etc/ssh/ssh_host_ecdsa_key ]; then
+    ssh-keygen -q -t ecdsa -N '' -f /etc/ssh/ssh_host_ecdsa_key
+    chown 0:0 /etc/ssh/ssh_host_ecdsa_key*
+fi
+if [ ! -f /etc/ssh/ssh_host_ed25519_key ]; then
+    ssh-keygen -q -t ed25519 -N '' -f /etc/ssh/ssh_host_ed25519_key
+    chown 0:0 /etc/ssh/ssh_host_ed25519_key*
+fi
+
+/usr/bin/sshd -f /etc/ssh/sshd_config -D
+}

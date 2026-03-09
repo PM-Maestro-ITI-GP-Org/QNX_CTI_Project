@@ -1,0 +1,9 @@
+
+[type=dir uid=0 gid=0 dperms=0700] var/run/user/0
+[type=dir uid=1000 gid=1000 dperms=0700] var/run/user/1000
+[type=dir uid=1001 gid=1001 dperms=0700] var/run/user/1001
+[type=dir uid=1002 gid=1002 dperms=0700] var/run/user/1002
+[type=dir uid=1003 gid=1003 dperms=0700] var/run/user/1003
+[type=dir uid=1004 gid=1004 dperms=0700] var/run/user/1004
+[type=dir uid=1005 gid=1005 dperms=0700] var/run/user/1005
+[type=dir uid=1006 gid=1006 dperms=0700] var/run/user/1006

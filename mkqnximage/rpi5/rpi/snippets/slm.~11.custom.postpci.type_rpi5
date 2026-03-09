@@ -1,0 +1,32 @@
+
+<!-- Enable RP1's PCI MSIX link
+     This doesn't actually configure any MSIX Interrupts.
+     That is done later with subsequent calls to msix-rp1
+     as required for specific HW. -->
+<SLM:component name="msix-rp1">
+  <SLM:depend>pci-server</SLM:depend>
+  <SLM:depend>devb</SLM:depend>
+  <SLM:command>msix-rp1</SLM:command>
+  <SLM:args>--mode=server</SLM:args>
+</SLM:component>
+
+<!-- Not strictly related to PCI, but this has to be done before
+     networking is started and this is a convenient place for that.
+
+     Enable RP1's MSIX ETH IRQ  -->
+<SLM:component name="msix-rp1_2">
+  <SLM:depend>msix-rp1</SLM:depend>
+  <SLM:command>msix-rp1</SLM:command>
+  <SLM:args>--mode=config 6</SLM:args>
+  <SLM:waitfor wait="exits" />
+</SLM:component>
+
+<!-- config ETH_RST_N/GPIO32 pin -->
+<SLM:component name="gpio-rp1">
+  <SLM:depend>pci-server</SLM:depend>
+  <SLM:depend>devb</SLM:depend>
+  <SLM:command>gpio-rp1</SLM:command>
+  <SLM:args>set 32 op pd dh</SLM:args>
+  <SLM:waitfor wait="exits" />
+</SLM:component>
+

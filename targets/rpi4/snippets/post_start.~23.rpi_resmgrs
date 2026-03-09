@@ -1,0 +1,12 @@
+# post_start.~23.rpi_resmgrs
+# Start the RPI specific resmgrs that depend on screen's VCIO interface
+
+echo '---> Starting RPi drivers...'
+rpi_mbox -U 523:523 &
+waitfor /dev/mailbox
+
+rpi_gpio -u 522:522 &
+waitfor /dev/gpio
+
+rpi_thermal &
+waitfor /dev/thermal

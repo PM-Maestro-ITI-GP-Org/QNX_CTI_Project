@@ -1,0 +1,4 @@
+    #ifs_env.~11.custom
+    procmgr_symlink /usr/etc/qwdi_wifi.conf /etc/qwdi_wifi.conf
+    procmgr_symlink __IFS_PATH__/getty /sbin/getty
+

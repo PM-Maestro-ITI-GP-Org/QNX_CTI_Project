@@ -1,0 +1,6 @@
+# mkqnximage won't automatically include mdnsd/dns-sd for QEMU
+if slay -p mdnsd >/dev/null 2>&1; then
+    START_P(mdnsd_t) SUBST_P(-u 0:0) mdnsd DROPROOT_NP(__MDNSD_ID__)
+    on -d -u __DNSSD_ID__:__DNSSD_ID__ SUBST_P(-T dnssd_t) dns-sd -R "XYZ" _airplay._tcp local 500x >/dev/null
+fi
+

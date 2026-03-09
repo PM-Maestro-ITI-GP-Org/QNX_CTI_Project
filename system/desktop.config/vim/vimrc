@@ -1,0 +1,6 @@
+source /usr/share/vim/vim91/defaults.vim
+
+filetype plugin indent on
+set tabstop=4
+set shiftwidth=4
+set expandtab

@@ -1,0 +1,23 @@
+# simple-terminal (st)
+[type=file uid=0 gid=0 perms=0755] bin/st=bin/st
+[type=link uid=0 gid=0 perms=0755] lib/libfreetype.so.6=libfreetype.so.24
+[type=file uid=0 gid=0 perms=0755] lib/libexpat.so.2=usr/lib/libexpat.so.2
+[type=link uid=0 gid=0 perms=0755] lib/libexpat.so.1=libexpat.so.2
+[type=file uid=0 gid=0 perms=0777] etc/st_boot.sh = {
+#!/bin/bash
+while true
+do
+    clear
+    /system/bin/uname -a
+    /sbin/getty
+done
+}
+
+# Fullscreen-winmgr
+[type=file uid=0 gid=0 perms=0755] bin/fullscreen-winmgr=usr/bin/fullscreen-winmgr
+
+# Demo launcher
+[type=file uid=0 gid=0 perms=0755] etc/version.txt=cti_build_version.txt
+[type=file uid=0 gid=0 perms=0755] bin/demolauncher=bin/demolauncher
+[type=dir uid=0 gid=0 dperms=0755] etc/images
+[type=dir uid=0 gid=0 dperms=0755] etc/desktop_files

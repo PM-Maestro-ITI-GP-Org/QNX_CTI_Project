@@ -1,0 +1,140 @@
+################################################################
+# RPi HW support
+################################################################
+bin/gpio-aon-bcm=bin/gpio-aon-bcm
+bin/gpio-bcm=bin/gpio-bcm
+bin/gpio-rp1=bin/gpio-rp1
+bin/mbox-bcm=bin/mbox-bcm
+bin/msix-rp1=bin/msix-rp1
+[type=file uid=0 gid=0 perms=0755] bin/rpi_mbox=sbin/rpi_mbox
+[type=file uid=0 gid=0 perms=0755] bin/rpi_thermal=sbin/rpi_thermal
+sbin/fan-rpi5=sbin/fan-rpi5
+bin/i2c-dwc-rpi5=sbin/i2c-dwc-rpi5
+
+bin/spi-dwc=sbin/spi-dwc
+etc/config/spi/spi.conf=etc/config/spi/spi.conf
+etc/spi.conf = {
+# See spi-template.conf or SDP docs for a full description of the configuration fields.
+
+[globals]
+verbose=5
+
+[bus]
+busno=0
+name=spi0
+base=0x1f00050000
+irq=179
+input_clock=200000000
+bs=cs_max=1
+
+[dev]
+parent_busno=0
+devno=0
+name=dev0
+clock_rate=100000000
+cpha=1
+cpol=0
+bit_order=msb
+word_width=32
+idle_insert=1
+
+}
+
+[type=file uid=0 gid=0 perms=0755] bin/rpi_thermal=sbin/rpi_thermal
+
+################################################################
+# General networking support
+################################################################
+
+################################################################
+# WIFI SUPPORT (no wifi?)
+################################################################
+#bin/wpa_supplicant-2.10=usr/sbin/wpa_supplicant-2.10
+#lib/libjail.so.1=lib/libjail.so.1
+#lib/dll/devs-qwdi_dhd_sdio-2_10-rpi4.so=lib/dll/devs-qwdi_dhd_sdio-2_10-rpi4.so
+#etc/qwdi_wifi.conf=etc/qwdi_wifi.conf
+#etc/firmware/wifi/firmware.bin=wifi/firmware.bin
+#etc/firmware/wifi/firmware.clm_blob=wifi/firmware.clm_blob
+#etc/firmware/wifi/nvram.txt=wifi/nvram.txt
+
+################################################################
+# USB support
+################################################################
+etc/usb_start.sh = {
+  echo "Starting USB xHCI controller in the host mode (/dev/usb/*)..."
+
+  # Enable RP1 MSIX USB2/USB3 interrupts
+  msix-rp1 --mode=config 31e,36e
+  gpio-rp1 set 42 a2 pn
+  gpio-rp1 set 43 a2 pu
+
+  /system/sbin/io-usb-otg -v -d dwc3-xhci ioport=0x1f00200000,irq=0xbf,iosize=0x100000,bmstr=0x1000000000,ioport=0x1f00300000,irq=0xc4,iosize=0x100000,bmstr=0x1000000000
+  waitfor /dev/usb/io-usb-otg 10
+}
+/lib/dll/devu-hcd-dwc3-xhci.so=lib/dll/devu-hcd-dwc3-xhci.so
+/lib/libhiddi.so=lib/libhiddi.so
+/lib/libusbdi.so.2=lib/libusbdi.so.2
+[type=link] lib/libusbdi.so=libusbdi.so.2
+/lib/libusbdi.so=lib/libusbdi.so
+/sbin/io-usb-otg=sbin/io-usb-otg
+/sbin/usb=sbin/usb
+/sbin/devb-umass=sbin/devb-umass
+/lib/libusbdci.so=lib/libusbdci.so
+
+
+################################################################
+# screen packages
+################################################################
+# <com.qnx.qnx800.target.screen.base>
+[type=file uid=0 gid=0 perms=0555] bin/vk-gears=usr/bin/vk-gears
+[type=file uid=0 gid=0 perms=0555] bin/vk-maze=usr/bin/vk-maze
+[type=file uid=0 gid=0 perms=0555] bin/vk-teapot=usr/bin/vk-teapot
+
+# <com.qnx.qnx800.target.screen.device_input_screen>
+[type=file uid=0 gid=0 perms=0555] bin/calib-touch=usr/bin/calib-touch
+[type=file uid=0 gid=0 perms=0555] bin/mtouch=usr/sbin/mtouch
+[type=file uid=0 gid=0 perms=0644] etc/system/config/mtouch.conf=etc/system/config/mtouch.conf
+# comment out above line and enable line below for Waveshare WS170120 touch screen
+#[type=file uid=0 gid=0 perms=0644] etc/system/config/mtouch.conf=etc/system/config/mtouch_ws170120.conf
+
+# <com.qnx.qnx800.target.screen.device_input>
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-calib.so.1=lib/libmtouch-calib.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-devi.so.1=lib/libmtouch-devi.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-fake.so.1=lib/libmtouch-fake.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-hid.so.1=lib/libmtouch-hid.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-inject.so.1=lib/libmtouch-inject.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libmtouch-fd.so.1=lib/libmtouch-fd.so.1
+[type=file uid=0 gid=0 perms=0644] etc/system/config/scaling.conf=etc/system/config/scaling.conf
+[type=link uid=0 gid=0 perms=0755] lib/libgestures.so=libgestures.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libinputevents.so=libinputevents.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-calib.so=libmtouch-calib.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-devi.so=libmtouch-devi.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-fake.so=libmtouch-fake.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-hid.so=libmtouch-hid.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-inject.so=libmtouch-inject.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libmtouch-fd.so=libmtouch-fd.so.1
+
+# <com.qnx.qnx800.target.screen.vulkan.sdk>
+[type=file uid=0 gid=0 perms=0555] bin/glslangValidator=usr/bin/glslangValidator
+[type=file uid=0 gid=0 perms=0555] bin/spirv-as=usr/bin/spirv-as
+[type=file uid=0 gid=0 perms=0555] bin/spirv-cfg=usr/bin/spirv-cfg
+[type=file uid=0 gid=0 perms=0555] bin/spirv-cross=usr/bin/spirv-cross
+[type=file uid=0 gid=0 perms=0555] bin/spirv-diff=usr/bin/spirv-diff
+[type=file uid=0 gid=0 perms=0555] bin/spirv-dis=usr/bin/spirv-dis
+[type=file uid=0 gid=0 perms=0555] bin/spirv-link=usr/bin/spirv-link
+[type=file uid=0 gid=0 perms=0555] bin/spirv-lint=usr/bin/spirv-lint
+[type=file uid=0 gid=0 perms=0555] bin/spirv-opt=usr/bin/spirv-opt
+[type=file uid=0 gid=0 perms=0555] bin/spirv-reduce=usr/bin/spirv-reduce
+[type=file uid=0 gid=0 perms=0555] bin/spirv-reflect=usr/bin/spirv-reflect
+[type=file uid=0 gid=0 perms=0555] bin/spirv-remap=usr/bin/spirv-remap
+[type=file uid=0 gid=0 perms=0555] bin/spirv-val=usr/bin/spirv-val
+
+################################################################
+# Browser packages
+################################################################
+
+# <com.qnx.qnx800.target.utils.libunwind>
+[type=file uid=0 gid=0 perms=0444] lib/libunwind-aarch64.so.8=usr/lib/libunwind-aarch64.so.8
+[type=link uid=0 gid=0 perms=0755] lib/libunwind-aarch64.so=libunwind-aarch64.so.8
+[type=link uid=0 gid=0 perms=0755] lib/libunwind-generic.so=libunwind-aarch64.so
+

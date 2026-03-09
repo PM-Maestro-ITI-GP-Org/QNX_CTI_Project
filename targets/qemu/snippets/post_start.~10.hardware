@@ -1,0 +1,7 @@
+# post_start.~10.hardware
+# Start basic HW functionality
+
+echo "---> Starting io-hid"
+io-hid -dps2ser-vm kbd:kbddev:vmware:mousedev  DROPROOT_P(__IO_HID_ID__)
+waitfor /dev/io-hid/io-hid
+chown __SCREEN_ID__ /dev/io-hid/io-hid

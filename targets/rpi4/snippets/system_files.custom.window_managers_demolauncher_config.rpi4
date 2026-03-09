@@ -1,0 +1,8 @@
+# Additional apps available on RPI4
+[type=file uid=0 gid=0 perms=0644] etc/desktop_files/vkcube.desktop={
+[Desktop Entry]
+Name=cube
+Exec=/usr/bin/vkcubepp
+Icon=/usr/share/icons/qnx/cube_large_coral.png
+Categories=Utilities
+}

@@ -1,0 +1,15 @@
+# io-sock etc
+[type=file perms=644] var/etc/hosts=etc/hosts
+[type=file perms=644] var/etc/networks=etc/networks
+[type=file perms=644] var/etc/nsswitch.conf=etc/nsswitch.conf
+[type=file perms=644] var/etc/protocols=etc/protocols
+[type=file perms=644] var/etc/services=etc/services
+[type=dir dperms=755] var/etc/ssl=etc/ssl
+[type=dir dperms=755] var/etc/ssl/certs=etc/ssl/certs
+[type=file perms=644] var/etc/ssl/certs/cacert.pem=etc/ssl/certs/cacert.pem
+[type=file perms=644] var/etc/ssl/certs/etag.txt=etc/ssl/certs/etag.txt
+
+# usblauncher_otg config files for auto mount usb storages
+[type=dir dperms=755] var/etc/usblauncher=etc/usblauncher
+[type=file perms=644] var/etc/usblauncher/rules.lua=etc/usblauncher/rules.lua
+[type=file perms=644] var/etc/usblauncher/rules.mnt=etc/usblauncher/rules.mnt

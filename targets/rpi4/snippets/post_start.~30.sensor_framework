@@ -1,0 +1,53 @@
+# post_start.~30.sensor_framework
+# Start sensor framework
+
+echo '---> Starting camera support...'
+# Set GPIO  for CSI2 cameras
+gpio-bcm2711 set 44 a1 # Set pin 44 to SDA0
+gpio-bcm2711 set 45 a1 # Set pin 45 to SCL0
+
+gpio-bcm2711 set 0 ip pd # Pull down pin 0
+gpio-bcm2711 set 1 ip pd # Pull down pin 1
+
+# Start VCHIQ and VCSM modules for ISP debayering
+bcm-rpi4-vchiq &
+waitfor /dev/vchiq
+bcm-rpi4-vcsm &
+waitfor /dev/vcsm
+
+if [ -d /dev/screen ]; then
+    echo '---> Starting sensor framework...'
+
+    # There can only be 1 instance of sensor simultaneously.
+    # Only 1 of the sensor commands below must be uncommented.
+
+    # Camera Module 3
+    #sensor -U 521:521 -b external -r /data/share/sensor -c /system/etc/config/sensor/camera_module3.conf
+
+    # Camera Module 3 bayer data - display with rpi4-debayer-example
+    #sensor -U 521:521 -b external -r /data/share/sensor -c /system/etc/config/sensor/camera_module3_bayer.conf
+
+    # Video playback of simulator camera i.e. color bars
+    #sensor -U 521:521 -b external -r /data/share/sensor -c /system/etc/config/sensor/video_playback.conf
+
+    # USB camera
+    #sensor -U 521:521 -r /data/share/sensor -c /system/etc/config/sensor/usb_camera.conf
+
+    # USB camera MJPEG format - display with mjpeg_example
+    #sensor -U 521:521 -r /data/share/sensor -c /system/etc/config/sensor/usb_camera_jpeg.conf
+
+    # USB3 vision camera: on pi4, you need -b external option to allocate below1G buffers for USB3 vision cameras
+    #sensor -U 521:521 -b external -r /data/share/sensor -c /system/etc/config/sensor/u3v_camera.conf
+
+    # Simulator camera i.e. color bars
+    sensor -U 521:521 -b external -r /data/share/sensor -c /system/etc/config/sensor/sensor_demo.conf
+
+    # Intel D435 depth camera - z16 depth map and ycbycr color image
+    #sensor -U 521:521 -r /data/share/sensor -c /system/etc/config/sensor/d435_z16_ycbycr.conf
+
+    # Intel D435 depth camera - rgb565 depth map image and ycbycr color image
+    #sensor -U 521:521 -r /data/share/sensor -c /system/etc/config/sensor/d435_rgb565_ycbycr.conf
+
+    waitfor /dev/sensor/camera1
+fi
+

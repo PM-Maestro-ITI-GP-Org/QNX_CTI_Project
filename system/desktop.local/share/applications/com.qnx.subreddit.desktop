@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Visit the QNX subreddit
+Comment=The QNX subreddit
+Icon=org.xfce.webbrowser
+Exec=xfce-open --launch WebBrowser https://www.reddit.com/r/QNX/new/?ref=qnxdevdesktop.qnx.com
+Type=Application
+Categories=WebSupport;

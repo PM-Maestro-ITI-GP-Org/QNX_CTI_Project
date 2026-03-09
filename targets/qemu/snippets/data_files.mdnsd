@@ -1,0 +1,2 @@
+# mkqnximage won't automatically include mdnsd/dns-sd for QEMU
+[type=dir dperms=755 uid=__MDNSD_ID__ gid=__MDNSD_ID__] var/run/mdnsd

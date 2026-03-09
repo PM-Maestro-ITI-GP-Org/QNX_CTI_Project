@@ -1,0 +1,18 @@
+# RPI4 files related to io-snd
+#
+# These might one day be included automatically by mkqnximage
+# but at the moment that isn't the case.
+#
+
+###########################################################################
+## io-snd drivers
+###########################################################################
+/lib/dll/sndrv-ctrl-bcm2711_pcm.so=lib/dll/sndrv-ctrl-bcm2711_pcm.so
+/lib/dll/sndrv-ctrl-bcm2711_pwm.so=lib/dll/sndrv-ctrl-bcm2711_pwm.so
+/lib/dll/sndrv-mixer-wm8960.so=lib/dll/sndrv-mixer-wm8960.so
+
+###########################################################################
+## io-snd configuration
+###########################################################################
+/etc/system/config/sound/io_snd.conf=etc/system/config/sound/io_snd_rpi4.conf
+

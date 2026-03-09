@@ -1,0 +1,40 @@
+--- ../../build/qemu_qsti/output/build/ifs.build.orig	2025-09-25 10:18:11.733428030 -0400
++++ ../../build/qemu_qsti/output/build/ifs.build	2025-09-25 11:06:20.150138714 -0400
+@@ -28,18 +28,18 @@
+     # the actual paths would be things like /ifs/bin/sh
+     procmgr_symlink /proc/boot/ksh /bin/ksh
+     procmgr_symlink /proc/boot/ksh /bin/sh
+-    procmgr_symlink /system/bin/cp /bin/cp
+-    procmgr_symlink /system/bin/rm /bin/rm
++    #procmgr_symlink /system/bin/cp /bin/cp
++    #procmgr_symlink /system/bin/rm /bin/rm
+     procmgr_symlink /data/var/tmp /tmp
+-    procmgr_symlink /system/bin/ssh /usr/bin/ssh
++    #procmgr_symlink /system/bin/ssh /usr/bin/ssh
+     procmgr_symlink /proc/boot/ldqnx-64.so.2 /usr/lib/ldqnx-64.so.2
+ 
+     # **FIXME**
+     # Processes should usually use _CS_CONFIG_PATH to locate configuration files.  But for now
+     # create symlinks for some locations that can't move.
+     procmgr_symlink /system/etc/terminfo /usr/share/terminfo
+-    procmgr_symlink /data/var/etc /etc
+-    procmgr_symlink /data/var /var
++    #procmgr_symlink /data/var/etc /etc
++    #procmgr_symlink /data/var /var
+     procmgr_symlink /system/etc/profile /etc/profile
+ 
+     TERM=qansi
+@@ -243,7 +243,7 @@
+ }
+ 
+ # general symlinks for FHS compatibility
+-[type=link] /usr=/system
++[type=link] /system=/usr
+ 
+ [type=link] /home=/data/home
+ [type=link] /root=/data/home/root
+@@ -265,3 +265,4 @@
+ [type=link] /bin=/usr/bin
+ [type=link] /lib=/usr/lib
+ 
++[type=link] /x86_64=/

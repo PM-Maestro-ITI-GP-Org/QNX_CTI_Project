@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=QNX 8.0 Documentation
+Comment=QNX 8.0 Documentation
+Icon=org.xfce.webbrowser
+Exec=xfce-open --launch WebBrowser https://www.qnx.com/developers/docs/8.0/com.qnx.doc.qnxsdp.nav/topic/bookset.html?ref=qnxdevdesktop
+Type=Application
+Categories=WebResources;

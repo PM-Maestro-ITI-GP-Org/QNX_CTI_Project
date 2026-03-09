@@ -1,0 +1,166 @@
+# ip6 internet tools
+bin/ip6addrctl=usr/sbin/ip6addrctl
+[perms=0644] etc/ip6addrctl.conf=etc/ip6addrctl.conf
+
+# usblauncher_otg for auto mount usb storages
+bin/usblauncher_otg=bin/usblauncher_otg
+lib/librmps.so=lib/librmps.so
+[type=link] lib/librmps.so.1=librmps.so
+
+bin/infocmp=usr/bin/infocmp
+[type=dir uid=0 gid=0 dperms=0755] local
+
+# Additional terminal configurations
+[perms=444] etc/terminfo/x/xterm-256color = usr/share/terminfo/x/xterm-256color
+
+# Licenses for external projects included in the image
+share/licenses=usr/share/licenses
+
+# <com.qnx.qnx800.osr.zoneinfo>
+[perms=444] share/zoneinfo=usr/share/zoneinfo
+
+###############################################################
+# Open SSL
+###############################################################
+lib/libcrypto.so.3=usr/lib/libcrypto.so.3
+lib/libssl.so.3=usr/lib/libssl.so.3
+bin/openssl=usr/bin/openssl
+bin/c_rehash=usr/bin/c_rehash
+lib/engines-3/devcrypto.so=usr/lib/engines-3/devcrypto.so
+lib/engines-3/loader_attic.so=usr/lib/engines-3/loader_attic.so
+lib/ossl-modules/legacy.so=usr/lib/ossl-modules/legacy.so
+lib/ossl-modules/fips.so=usr/lib/ossl-modules/fips.so
+[type=link] lib/libcrypto.so=libcrypto.so.3
+[type=link] lib/libssl.so=libssl.so.3
+bin/updatecacert=usr/bin/updatecacert
+etc/ssl/certs/etag.txt=etc/ssl/certs/etag.txt
+
+bin/ssh-keysign=usr/libexec/ssh-keysign
+bin/ssh-pkcs11-helper=usr/libexec/ssh-pkcs11-helper
+bin/ssh-sk-helper=usr/libexec/ssh-sk-helper
+bin/sshd-session=usr/libexec/sshd-session
+[type=link] libexec/sshd-session=/usr/bin/sshd-session
+
+###############################################################
+# SQLITE3
+###############################################################
+lib/libsqlite3.so.1=usr/lib/libsqlite3.so.1
+lib/libsqlite3-noicu.so.1=usr/lib/libsqlite3-noicu.so.1
+[type=link] lib/libsqlite3.so=libsqlite3.so.1
+[type=link] lib/libsqlite3-noicu.so=libsqlite3-noicu.so.1
+
+################################################################
+# base packages
+################################################################
+
+# <com.qnx.qnx800.target.base.elf>
+[type=file uid=0 gid=0 perms=0555] bin/elfnote=usr/bin/elfnote
+
+# <com.qnx.qnx800.target.base.text.icu>
+[type=file uid=0 gid=0 perms=0444] lib/libicudata.so.67.1=usr/lib/libicudata.so.67.1
+[type=file uid=0 gid=0 perms=0444] lib/libicui18n.so.67.1=usr/lib/libicui18n.so.67.1
+[type=file uid=0 gid=0 perms=0444] lib/libicuuc.so.67.1=usr/lib/libicuuc.so.67.1
+[type=file uid=0 gid=0 perms=0755] share/icu/icudt67l.dat=usr/share/icu/icudt67l.dat
+[type=link uid=0 gid=0 perms=0755] lib/libicudata.so=libicudata.so.67.1
+[type=link uid=0 gid=0 perms=0755] lib/libicudata.so.67=libicudata.so.67.1
+[type=link uid=0 gid=0 perms=0755] lib/libicui18n.so=libicui18n.so.67.1
+[type=link uid=0 gid=0 perms=0755] lib/libicui18n.so.67=libicui18n.so.67.1
+[type=link uid=0 gid=0 perms=0755] lib/libicuuc.so=libicuuc.so.67.1
+[type=link uid=0 gid=0 perms=0755] lib/libicuuc.so.67=libicuuc.so.67.1
+
+
+################################################################
+# screen packages
+################################################################
+# <com.qnx.qnx800.target.screen.base>
+[type=file uid=0 gid=0 perms=0555] bin/display-adjustment=bin/display-adjustment
+[type=file uid=0 gid=0 perms=0555] bin/cl10-pi=usr/bin/cl10-pi
+[type=file uid=0 gid=0 perms=0555] bin/cl11-ray=usr/bin/cl11-ray
+[type=file uid=0 gid=0 perms=0555] bin/clinfo=usr/bin/clinfo
+[type=file uid=0 gid=0 perms=0555] bin/egl-configs=usr/bin/egl-configs
+[type=file uid=0 gid=0 perms=0555] bin/events=usr/bin/events
+[type=file uid=0 gid=0 perms=0555] bin/gles2-gears=usr/bin/gles2-gears
+[type=file uid=0 gid=0 perms=0555] bin/gles2-maze=usr/bin/gles2-maze
+[type=file uid=0 gid=0 perms=0555] bin/gles2-teapot=usr/bin/gles2-teapot
+[type=file uid=0 gid=0 perms=0555] bin/gles3-gears=usr/bin/gles3-gears
+[type=file uid=0 gid=0 perms=0555] bin/screenshot=usr/bin/screenshot
+[type=file uid=0 gid=0 perms=0555] bin/sharewin=usr/bin/sharewin
+[type=file uid=0 gid=0 perms=0555] bin/vg-tiger=usr/bin/vg-tiger
+[type=file uid=0 gid=0 perms=0555] bin/sw-vsync=usr/bin/sw-vsync
+[type=file uid=0 gid=0 perms=0555] bin/win-vsync=usr/bin/win-vsync
+[type=file uid=0 gid=0 perms=0444] lib/libOpenCL.so.1=usr/lib/libOpenCL.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libOpenVG.so.1=usr/lib/libOpenVG.so.1
+[type=file uid=0 gid=0 perms=0444] lib/libOpenVGU.so.1=usr/lib/libOpenVGU.so.1
+[type=file uid=0 gid=0 perms=0644] share/screen/graphics-headless.conf=usr/share/screen/graphics-headless.conf
+[type=file uid=0 gid=0 perms=0644] share/screen/graphics-virtual-display.conf=usr/share/screen/graphics-virtual-display.conf
+[type=link uid=0 gid=0 perms=0755] lib/libOpenCL.so=libOpenCL.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libOpenVG.so=libOpenVG.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libOpenVGU.so=libOpenVGU.so.1
+
+# <com.qnx.qnx800.target.screen.board.drm>
+[type=file uid=0 gid=0 perms=0555] bin/drm-detect-displays=usr/bin/drm-detect-displays
+
+# <com.qnx.qnx800.target.screen.screen_utils>
+[type=file uid=0 gid=0 perms=0555] bin/gltracelogger=bin/gltracelogger
+[type=file uid=0 gid=0 perms=0555] bin/gltraceprinter=bin/gltraceprinter
+[type=file uid=0 gid=0 perms=0555] bin/vncserv=bin/vncserv
+
+################################################################
+# Browser packages
+################################################################
+
+# <com.qnx.qnx800.target.libbacktrace>
+[type=file uid=0 gid=0 perms=0444] lib/libbacktrace.so.1=lib/libbacktrace.so.1
+[type=link uid=0 gid=0 perms=0755] lib/libbacktrace.so=libbacktrace.so.1
+
+# <com.qnx.qnx800.target.utils.libunwind>
+[type=file uid=0 gid=0 perms=0444] lib/libunwind-coredump.so.0=usr/lib/libunwind-coredump.so.0
+[type=file uid=0 gid=0 perms=0444] lib/libunwind-nto.so.0=usr/lib/libunwind-nto.so.0
+[type=file uid=0 gid=0 perms=0444] lib/libunwind.so.8=usr/lib/libunwind.so.8
+[type=link uid=0 gid=0 perms=0755] lib/libunwind-nto.so=libunwind-nto.so.0
+[type=link uid=0 gid=0 perms=0755] lib/libunwind-coredump.so=libunwind-coredump.so.0
+[type=link uid=0 gid=0 perms=0755] lib/libunwind.so=libunwind.so.8
+
+################################################################
+# Other Dependency packages
+################################################################
+# <com.qnx.qnx800.target.screen.img_codecs>
+# required by browsers, pixman and cairo
+[type=file uid=0 gid=0 perms=0444] lib/dll/img_codec_pcx.so=lib/dll/img_codec_pcx.so
+[type=file uid=0 gid=0 perms=0444] lib/dll/img_codec_wbmp.so=lib/dll/img_codec_wbmp.so
+[type=file uid=0 gid=0 perms=0444] lib/libgif.so.7=usr/lib/libgif.so.7
+[type=link uid=0 gid=0 perms=0755] lib/libjpeg.so=libjpeg.so.9
+[type=link uid=0 gid=0 perms=0755] lib/libgif.so=libgif.so.7
+[type=link uid=0 gid=0 perms=0755] lib/libpng.so=libpng16.so
+[type=link uid=0 gid=0 perms=0755] lib/libtiff.so=libtiff.so.5
+[type=file uid=0 gid=0 perms=0444] lib/libz.so.2=usr/lib/libz.so.2
+[type=file uid=0 gid=0 perms=0444] lib/libz.so.1=usr/lib/libz.so.2
+[type=file uid=0 gid=0 perms=0444] lib/libz.so=usr/lib/libz.so
+
+
+# <com.qnx.qnx800.target.input.keyboard>
+share/keyboard=usr/share/keyboard
+[type=file uid=0 gid=0 perms=0644] etc/kbd.tbl.us=etc/kbd.tbl.us
+[type=file uid=0 gid=0 perms=0644] etc/kbd.tbl.de=etc/kbd.tbl.de
+
+# <com.qnx.qnx800.target.base.compression>
+[type=file uid=0 gid=0 perms=0444] lib/libzstd.so.1=usr/lib/libzstd.so.1
+
+# <com.qnx.qnx800.target.os_services.hid>
+
+
+# com.qnx.qnx800dev.target.utils.hw
+[type=file uid=0 gid=0 perms=0755] bin/dloader=sbin/dloader
+[type=file uid=0 gid=0 perms=0755] bin/canctl=bin/canctl
+[type=file uid=0 gid=0 perms=0755] bin/resource_seed=bin/resource_seed
+[type=file uid=0 gid=0 perms=0755] bin/rtc=sbin/rtc
+[type=file uid=0 gid=0 perms=0755] bin/isend=bin/isend
+[type=file uid=0 gid=0 perms=0755] bin/isendrecv=bin/isendrecv
+
+# common hardware sample includes
+[type=file uid=0 gid=0 perms=644] include/smmu.h=usr/include/smmu.h
+[type=file uid=0 gid=0 perms=644] include/hw/dma.h=usr/include/hw/dma.h
+[type=file uid=0 gid=0 perms=644] include/hw/i2c.h=usr/include/hw/i2c.h
+[type=file uid=0 gid=0 perms=644] include/hw/io-spi.h=usr/include/hw/io-spi.h
+[type=file uid=0 gid=0 perms=644] include/sys/slog2.h=usr/include/sys/slog2.h
+[type=file uid=0 gid=0 perms=644] include/sys/slogcodes.h=usr/include/sys/slogcodes.h

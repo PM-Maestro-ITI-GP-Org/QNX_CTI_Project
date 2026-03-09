@@ -1,0 +1,10 @@
+[perms=555] libexec/qnx/tty-login.sh = {
+#!/bin/sh
+
+sleep 3
+while true; do
+    login
+    clear
+    sleep 3
+done
+}

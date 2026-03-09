@@ -1,0 +1,39 @@
+# post_start.~10.hardware
+msix-rp1 --mode=server
+
+# Enable the GPIO interrupts at MSIX
+msix-rp1 --mode=config 0
+
+# Configure additional UARTs
+# Enable RP1 MSIX UART2/UART4 interrupt
+msix-rp1 --mode=config 43,45
+
+# Start basic HW functionality
+echo '---> Starting USB...'
+/system/etc/usb_start.sh
+usblauncher_otg -0 -l
+
+io-hid -dusb
+waitfor /dev/io-hid/io-hid
+
+echo '---> Starting I2C bus...'
+# Enable RP1 MSIX I2C1 interrupts
+msix-rp1 --mode=config 8lll
+gpio-rp1 set 2 a3 pu
+gpio-rp1 set 3 a3 pu
+on -u 0:525 /system/bin/i2c-dwc-rpi5 -p0x1f00074000 -c200000000 -q0xa8 --u1
+
+echo "---> Starting SPI master driver ..."
+# Enable RP1 MSIX SPI0 interrupts
+msix-rp1 --mode=config 19lll
+gpio-rp1 set 7-8 a0 pu
+gpio-rp1 set 9-11 a0 pd
+on -u 0:524 /system/bin/spi-dwc -c /system/etc/spi.conf
+
+echo "---> Starting fan control driver ..."
+# gpio 45 is congiured as PWM1_CHAN3 to drive fan
+gpio-rp1 set 45 a0 pd
+/system/sbin/fan-rpi5
+waitfor /dev/fan
+echo 200 > /dev/fan
+

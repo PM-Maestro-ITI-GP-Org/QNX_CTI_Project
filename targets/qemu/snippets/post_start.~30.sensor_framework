@@ -1,0 +1,15 @@
+# post_start.~30.sensor_framework
+# Start sensor framework
+
+if [ -d /dev/screen ]; then
+    echo '---> Starting sensor framework...'
+
+    # Simulator camera i.e. color bars
+    sensor -U 521:521 -r /system/share/sensor -c /system/etc/config/sensor/sensor_demo.conf
+
+    # Video playback of simulator camera i.e. color bars
+    #sensor -U 521:521 -r /data/share/sensor -c /system/etc/config/sensor/video_playback.conf
+
+    waitfor /dev/sensor/camera1
+fi
+

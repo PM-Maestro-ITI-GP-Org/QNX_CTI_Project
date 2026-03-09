@@ -1,0 +1,21 @@
+<SLM:component name="ca-trust-init">
+  <SLM:depend>set-host</SLM:depend>
+  <SLM:depend state="stateless">root-fs</SLM:depend>
+  <SLM:command>/usr/etc/startup/ca_certificates_extract.sh</SLM:command>
+  <SLM:waitfor wait="exits" />
+</SLM:component>
+
+<SLM:component name="pam">
+  <SLM:depend state="stateless">set-host</SLM:depend>
+  <SLM:depend state="stateless">root-fs</SLM:depend>
+  <SLM:depend state="stateless">apk_start/SLM:depend>
+  <SLM:command>/usr/etc/startup/startup_pam.sh</SLM:command>
+  <SLM:waitfor wait="exits" />
+</SLM:component>
+
+<SLM:component name="apk_start">
+  <SLM:depend state="stateless">set-host</SLM:depend>
+  <SLM:depend state="stateless">root-fs</SLM:depend>
+  <SLM:command>/usr/etc/startup/full_startup.sh</SLM:command>
+  <SLM:waitfor wait="exits" polltime="5000:400000">0</SLM:waitfor>
+</SLM:component>

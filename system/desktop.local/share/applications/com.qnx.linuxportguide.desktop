@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Linux Porting Guide
+Comment=Guide to port Linux utilities to QNX
+Icon=org.xfce.webbrowser
+Exec=xfce-open --launch WebBrowser https://www.qnx.com/developers/docs/qnxeverywhere/com.qnx.doc.qnxeverywhere/topic/lpg/about.html?ref=qnxdevdesktop
+Type=Application
+Categories=WebResources;

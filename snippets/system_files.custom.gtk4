@@ -1,0 +1,7 @@
+# GTK+ 4 demo launch script for demolauncher
+
+[type=file uid=0 gid=0 perms=0755] bin/startGTK4Demo.sh={
+#!/usr/bin/bash
+ 
+GDK_BACKEND=qnx GSK_RENDERER=cairo /usr/bin/gtk4-demo
+}

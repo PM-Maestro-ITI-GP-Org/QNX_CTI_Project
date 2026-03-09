@@ -1,0 +1,6 @@
+
+[type=dir uid=0 gid=0 dperms=0755] share/
+
+# Directory for the camera roll
+[type=dir uid=521 gid=521 dperms=2775] share/sensor
+

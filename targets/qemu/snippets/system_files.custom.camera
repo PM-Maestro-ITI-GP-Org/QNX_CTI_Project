@@ -1,0 +1,3 @@
+[type=file uid=0 gid=0 perms=0644] etc/config/sensor/sensor_demo.conf=etc/config/qemu/sensor/sensor_demo.conf
+[type=file uid=0 gid=0 perms=0644] etc/config/sensor/video_playback.conf=etc/config/qemu/sensor/video_playback.conf
+

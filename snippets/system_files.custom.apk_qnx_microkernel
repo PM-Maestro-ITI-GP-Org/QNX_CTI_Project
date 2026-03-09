@@ -1,0 +1,4 @@
+
+# to address qnx-microkernel installation failure
+[type=file] lib/ldqnx-64.so.2=usr/lib/ldqnx-64.so.2
+

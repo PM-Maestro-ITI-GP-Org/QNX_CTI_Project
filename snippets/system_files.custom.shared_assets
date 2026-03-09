@@ -1,0 +1,13 @@
+
+# shared backgrounds
+[perms=0444] share/backgrounds=backgrounds/backgrounds
+
+#shared fonts
+[perms=0444] share/fonts=usr/share/fonts
+
+#shared fontconfig
+[perms=0444] share/fontconfig/conf.avail=usr/share/fontconfig/conf.avail
+
+# shared icons
+[perms=0444] share/icons=icons/icons
+[perms=0444] share/icons=usr/share/icons

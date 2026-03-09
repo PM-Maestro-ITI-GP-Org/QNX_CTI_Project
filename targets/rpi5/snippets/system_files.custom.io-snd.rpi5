@@ -1,0 +1,21 @@
+# RPI5 files related to io-snd
+#
+# These might one day be included automatically by mkqnximage
+# but at the moment that isn't the case.
+#
+
+###########################################################################
+## io-snd drivers
+###########################################################################
+# No RPI5 specific drivers yet, left the RPI4 ones commented out below
+# as a reference for what to expect in the future
+#/lib/dll/sndrv-ctrl-bcm2711_pcm.so=lib/dll/sndrv-ctrl-bcm2711_pcm.so
+#/lib/dll/sndrv-ctrl-bcm2711_pwm.so=lib/dll/sndrv-ctrl-bcm2711_pwm.so
+#/lib/dll/sndrv-mixer-wm8960.so=lib/dll/sndrv-mixer-wm8960.so
+
+###########################################################################
+## io-snd configuration
+###########################################################################
+# Enable just USB for the moment
+/etc/system/config/sound/io_snd.conf=etc/system/config/sound/io_snd_usb.conf
+

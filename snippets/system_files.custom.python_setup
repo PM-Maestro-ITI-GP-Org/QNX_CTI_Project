@@ -1,0 +1,64 @@
+# wheels built for x86_64 QNX
+[type=file perms=644] local/ujson-5.11.1.dev9-py3-none-any.whl=usr/local/ujson-5.11.1.dev9-py3-none-any.whl
+[type=file perms=644] local/python_lsp_server-0.0.0-py3-none-any.whl=usr/local/python_lsp_server-0.0.0-py3-none-any.whl
+[type=file perms=644] local/cmake_language_server-0.1.11+d20251106-py3-none-any.whl=usr/local/cmake_language_server-0.1.11+d20251106-py3-none-any.whl
+[type=file perms=644] local/pycodestyle-2.14.0-py2.py3-none-any.whl=usr/local/pycodestyle-2.14.0-py2.py3-none-any.whl
+
+
+# python setup startup script
+[uid=0 gid=0 perms=0555] etc/startup/setup_python.sh = {
+#!/bin/bash
+
+# Ensure pip3 is installed on first boot
+CHECK_PIP3=`which pip3`
+
+echo "--> Checking Python installation..."
+if [[ -z "$CHECK_PIP3" ]]; then
+    python -m ensurepip > /dev/null 2>&1
+    rc=$?
+    if [[ rc -ne 0 ]]; then
+        echo "ERROR: pip3 failed to install."
+    else
+        echo "   pip3 installed successfully."
+    fi
+    echo " "
+fi
+
+# Ensure some Python packages needed for development tools are installed on first boot
+
+# pycodestyle - module for Python lint function defined in Geany for python source code
+CHECK_PYCS=`pip3 freeze | grep pycodestyle`
+CHECK_PYLSP=`pip3 freeze | grep python-lsp-server`
+CHECK_CMLSP=`pip3 freeze | grep cmake-language-server`
+
+if [[ -z "$CHECK_PYCS" ]]; then
+    pip3 --timeout 3 --retries 0 install --break-system-packages /usr/local/pycodestyle-2.14.0-py2.py3-none-any.whl > /dev/null 2>&1
+    rc=$?
+    if [[ rc -ne 0 ]]; then
+        echo "WARNING: pycodestyle failed to installed.  Please connect to a network and install manually."
+    else
+        echo "    pycodestyle installed successfully."
+    fi
+fi
+
+if [[ -z "$CHECK_PYLSP" ]]; then
+    pip3 --timeout 3 --retries 0 install --break-system-packages /usr/local/ujson-5.11.1.dev9-py3-none-any.whl /usr/local/python_lsp_server-0.0.0-py3-none-any.whl > /dev/null 2>&1
+    rc=$?
+    if [[ rc -ne 0 ]]; then
+        echo "WARNING: python-lsp-server failed to installed.  Please connect to a network and install manually."
+    else
+        echo "    python-lsp-server installed successfully."
+    fi
+fi
+
+if [[ -z "$CHECK_CMLSP" ]]; then
+    pip3 --timeout 3 --retries 0 install --break-system-packages /usr/local/cmake_language_server-0.1.11+d20251106-py3-none-any.whl > /dev/null 2>&1
+    rc=$?
+    if [[ rc -ne 0 ]]; then
+        echo "WARNING: cmake-language-server failed to installed.  Please connect to a network and install manually."
+    else
+        echo "    cmake-language-server installed successfully."
+    fi
+    echo " "
+fi
+}
