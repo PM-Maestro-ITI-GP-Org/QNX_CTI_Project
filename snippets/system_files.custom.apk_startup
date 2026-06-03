@@ -20,7 +20,9 @@ fi
 if [ -d /dev/screen ]; then
     echo '---> Starting Demolauncher...'
     # enable lines below to run the demolauncher
-    demolauncher -a /system/etc/desktop_files &
+    # replaced by aboelyazeed:
+    # demolauncher -a /system/etc/desktop_files &
+    demolauncher -a /system/etc/desktop_files -b /system/etc/images/myAngel &
 fi
 }
 

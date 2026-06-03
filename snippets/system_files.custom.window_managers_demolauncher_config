@@ -4,6 +4,9 @@
 [type=file uid=0 gid=0 perms=0444] etc/images/background_720p.png=backgrounds/local/background_720p.png
 [type=file uid=0 gid=0 perms=0444] etc/images/background_1080p.png=backgrounds/local/background_1080p.png
 [type=file uid=0 gid=0 perms=0444] share/icons/qnx_everywhere_logo.png=icons/local/qnx_everywhere_logo.png
+# added by aboelyazeed
+[type=file uid=0 gid=0 perms=0444] etc/images/myAngel_720p.png=backgrounds/local/myAngel.png
+[type=file uid=0 gid=0 perms=0444] etc/images/myAngel_1080p.png=backgrounds/local/myAngel.png
 
 # Configure the 'icons'
 [type=file uid=0 gid=0 perms=0644] etc/desktop_files/terminal.desktop={

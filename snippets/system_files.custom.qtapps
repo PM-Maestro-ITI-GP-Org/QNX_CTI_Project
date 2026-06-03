@@ -1,0 +1,6 @@
+# calculator app
+[uid=0 gid=0 perms=0755] usr/bin/appCalculatorApp = stage/nto/aarch64le/usr/bin/appCalculatorApp
+
+# cluster app
+[uid=0 gid=0 perms=0755] usr/bin/appCluster = stage/nto/aarch64le/usr/bin/appCluster
+[uid=0 gid=0 perms=0755] usr/bin/dummy.csv = /home/zee/ITI_Files/QT/QT_Cpp_GUIs/Cluster/dummy.csv

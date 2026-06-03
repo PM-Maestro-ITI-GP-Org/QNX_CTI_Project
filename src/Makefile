@@ -55,7 +55,8 @@ QNXUSER_SOLUTIONS=qnxuser_solutions
 
 .PHONY: all clean cleanup_pc_files
 
-PKGS = thorvg lottie-screen_thorvg simple-terminal
+# add the boost and common api and someip
+PKGS = thorvg lottie-screen_thorvg simple-terminal boost commonapi_someip commonapi vsomeip mycustomapps clusterapp
 
 ifneq ($(filter rpi4 rpi5,$(TARGET)),)
 PKGS += rpi-gpio rpi-mailbox rpi-thermal
@@ -99,6 +100,12 @@ define prepare_stage =
 mkdir -p $(STAGE_ROOT)
 mkdir -p $(STAGE_TARGET)
 endef
+
+include boost.mk
+include commonapi_someip.mk
+include commonapi.mk
+include vsomeip.mk
+include addcustomapps.mk
 
 define prepare_stage_apk_contents =
 mkdir -p $(STAGE_ROOT)/usr
@@ -240,6 +247,66 @@ source/lottie-screen_thorvg-built-$(QNX_ARCH): source/lottie-screen_thorvg-ready
 		EXTRA_LIBVPATH=$(STAGE_TARGET)/usr/lib \
 		MY_STAGE=$(STAGE_ROOT) make install
 	touch $@
+
+# # added by aboelyazeed:
+# # # Awadin QNX task
+# source/bash-ready:
+# 	mkdir -p source
+# 	cd source && git clone https://github.com/qnx-ports/bash.git
+# 	cd source/bash && git checkout $(BASH_SHA)
+# 	touch $@
+
+# source/bash-built-$(QNX_ARCH): source/bash-ready source/build-files-ready
+# 	QCONF_OVERRIDE=$(PWD)/qconf-override.mk
+# 		CPULIST=$(QNX_ARCH) \
+# 		QNX_ARCH=$(QNX_ARCH) \
+# 		QNX_PROJECT_ROOT="$(PWD)/source/bash" make -C
+# 	source/build-files/ports/bash install -j4
+# 	touch $@
+
+
+# # Bash has a build-files entry
+# source/build-files-ready:
+# 	mkdir -p source
+# 	cd source && git clone https://github.com/qnx-ports/build-files.git
+# 	cd source/build-files && git checkout $(BUILD_FILES_SHA)
+# 	touch $@
+
+# source/bash-ready:
+# 	mkdir -p source
+# 	cd source && git clone https://github.com/qnx-ports/bash.git
+# 	cd source/bash && git checkout $(BASH_SHA)
+# 	touch $@
+
+# source/bash-built-$(QNX_ARCH): source/bash-ready source/build-files-ready
+# 	QCONF_OVERRIDE=$(MYDIR)/qconf-override.mk \
+# 	CPULIST=$(QNX_ARCH) \
+# 	QNX_ARCH=$(QNX_ARCH) \
+# 	QNX_PROJECT_ROOT="$(MYDIR)/source/bash" make -C source/build-files/ports/bash install -j4
+# 	touch $@
+
+# # Pattern Race doesn't have a build-files entry, so we build it directly here
+# source/pattern-race-ready:
+# 	mkdir -p source
+# 	cd source && git clone https://gitlab.com/ad2lahav/pattern-race.git
+# 	cd source/pattern-race && git checkout $(PATTERN_RACE_SHA)
+# 	touch $@
+
+# source/pattern-race-built-$(QNX_ARCH): source/pattern-race-ready source/simple-terminal-built-$(QNX_ARCH)
+# 	mkdir -p source/pattern-race/build-$(QNX_ARCH)
+# 	cd source/pattern-race/build-$(QNX_ARCH) && cmake .. \
+# 		-DCMAKE_TOOLCHAIN_FILE=../qnx/$(QNX_ARCHDIR)/cmake-toolchain-qnx-$(QNX_ARCHDIR).cmake \
+# 		-DSDL2_DIR=$(STAGE_TARGET)/usr/lib/cmake/SDL2 \
+# 		-DCMAKE_EXE_LINKER_FLAGS="-L/home/ehab/qnxCTI/qnx800/target/qnx/$(QNX_ARCHDIR)/usr/lib \
+# 		-L$(STAGE_TARGET)/usr/lib \
+# 		-L$(APK_STAGE_ROOT)/usr/lib \
+# 		-lfreetype -lbrotlidec -lbrotlicommon -lz -lc++"
+# 	cd source/pattern-race/build-$(QNX_ARCH) && make -j4
+# 	mkdir -p $(STAGE_TARGET)/usr/bin/pattern-race
+# 	cp source/pattern-race/build-$(QNX_ARCH)/patrace $(STAGE_TARGET)/usr/bin/pattern-race/
+# 	cp -r source/pattern-race/assets $(STAGE_TARGET)/usr/bin/pattern-race/
+# 	touch $@
+
 
 $(QNXUSER_REPOS):
 	mkdir -p $(QNXUSER_REPOS)

@@ -1,0 +1,1 @@
+export QSC_CLT_PATH=${HOME}/ITI_Files/QNX/qnxsoftwarecenter/qnxsoftwarecenter_clt

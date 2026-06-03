@@ -156,6 +156,9 @@ $(STAGE_SNIPPETS):
 $(STAGE_TARGET):
 	mkdir -p $(STAGE_TARGET)
 
+$(STAGE_APK_ROOT):
+	mkdir -p $(STAGE_APK_ROOT)
+
 $(STAGE_BASE)/apk-tools-ready:
 	cd $(STAGE_BASE) && git clone https://github.com/alpinelinux/apk-tools.git
 	cd $(STAGE_BASE)/apk-tools && git checkout $(APK_TOOLS_REPO_TAG)
@@ -299,7 +302,7 @@ $(STAGE_APK_ROOT)/etc/sudoers.apk-new: $(STAGE_BASE)/preinstall_apks
 $(STAGE_APK_ROOT)/etc/ssh/sshd_config.apk-new: $(STAGE_BASE)/preinstall_apks
 	rm -rf $(STAGE_APK_ROOT)/etc/ssh/sshd_config.apk-new
 	cp $(STAGE_APK_ROOT)/etc/ssh/sshd_config $(STAGE_APK_ROOT)/etc/ssh/sshd_config.apk-new
-	sed -i -e 's/#PermitRootLogin prohibit-password/PermitRootLogin no/g' $(STAGE_APK_ROOT)/etc/ssh/sshd_config
+	sed -i -e 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' $(STAGE_APK_ROOT)/etc/ssh/sshd_config
 	sed -i -e 's/#UsePAM no/UsePAM yes/g' $(STAGE_APK_ROOT)/etc/ssh/sshd_config
 	sed -i -e 's/#PasswordAuthentication yes/PasswordAuthentication yes/g' $(STAGE_APK_ROOT)/etc/ssh/sshd_config
 	sed -i -e 's/#PermitUserEnvironment no/PermitUserEnvironment yes/g' $(STAGE_APK_ROOT)/etc/ssh/sshd_config
