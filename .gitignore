@@ -6,3 +6,11 @@
 /options_file
 */stage
 /.vscode
+
+# Build dependencies (they will be downloaded automaticly when you build)
+src/boost_1_82_0.tar.gz
+src/boost/
+src/vsomeip/
+src/capicxx-core-runtime/
+src/capicxx-someip-runtime/
+
