@@ -2,6 +2,8 @@
 
 ## Add ur work
 
+run these in the repo already on ur pc
+
 ```bash
 git remote rename origin upstream
 git remote add origin git@github.com:PM-Maestro-ITI-GP-Org/QNX_CTI_Project.git
