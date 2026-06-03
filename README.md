@@ -1,5 +1,33 @@
 # Custom Target Image Builds - QNX 8.0
 
+## Add ur work
+
+```bash
+git remote rename origin upstream
+git remote add origin git@github.com:PM-Maestro-ITI-GP-Org/QNX_CTI_Project.git
+```
+
+then commit your work:
+
+```bash
+git add .
+git commit -m "added project files"
+```
+
+get the latest changes from the main branch of the original repo:
+
+```bash
+git fetch origin
+git pull origin release/QNX_Developer_Desktop_Release2  
+```
+
+create a new branch for your work:
+
+```bash
+git checkout -b main
+git push -u origin main
+```
+
 ## Overview
 
 This project allows QNX developers to build their own custom target images for
