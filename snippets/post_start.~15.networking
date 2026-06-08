@@ -2,6 +2,15 @@
 # Start or adjust any networking required
 . /data/var/etc/settings/network
 
+# # adding static ip for wifi and ethernet:
+# OTA Wi-Fi link: Host laptop <-> QNX RPi4
+#ifconfig bcm0 192.168.1.101 netmask 255.255.255.0 up
+
+# OTA Ethernet link: QNX RPi4 <-> Yocto RPi3
+ifconfig cgem0 192.168.50.100 netmask 255.255.255.0 up
+# Multicast route for SOME/IP service discovery on Ethernet
+route add -net 224.0.0.0 -netmask 240.0.0.0 192.168.50.100
+
 ip6addrctl install /system/etc/ip6addrctl.conf
 
 if [ ! -z "$IP_ADDR" ] && [ ! "$IP_ADDR" = "dhcp" ]; then

@@ -1,0 +1,10 @@
+echo "[OTA-GW] Creating staging directory..."
+mkdir -p /var/ota_staging
+
+echo "[OTA-GW] Exporting some variables..."
+export LD_LIBRARY_PATH=/system/usr/lib:/usr/lib:$LD_LIBRARY_PATH
+export VSOMEIP_CONFIGURATION=/system/etc/vsomeip/vsomeip-ota-qnx.json
+export VSOMEIP_APPLICATION_NAME=OtaGateway
+
+echo "[OTA-GW] Starting OTA gateway..."
+/system/usr/bin/ota-gateway &

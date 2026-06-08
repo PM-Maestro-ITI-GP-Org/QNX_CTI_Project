@@ -1,5 +1,11 @@
 network={
-HOSTNAME=qnxpi
+HOSTNAME=zee_qnxpi
 }
 wpa_supplicant.conf=wpa_supplicant.conf
 wpa_supplicant.conf.verbose=wpa_supplicant.conf.verbose
+
+# to add static wifi ip step 1:
+#network={
+#HOSTNAME=zee_qnxpi
+#IP_ADDR=192.168.1.101
+#}

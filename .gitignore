@@ -14,3 +14,4 @@ src/vsomeip/
 src/capicxx-core-runtime/
 src/capicxx-someip-runtime/
 
+*.bak

@@ -1,0 +1,46 @@
+# OTA Gateway binary
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/bin] usr/bin/ota-gateway = ota-gateway
+
+# Staging directory on data partition
+[type=dir uid=0 gid=0 dperms=0755] var/ota_staging
+
+# vsomeip config for QNX side (Ethernet link to RPi3)
+[uid=0 gid=0 perms=0644 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/ota-gateway] etc/vsomeip/vsomeip-ota-qnx.json = vsomeip-ota-qnx.json
+
+# Boost libs — ALL symlinks and real files
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_atomic.so = libboost_atomic.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_atomic.so.1.82.0 = libboost_atomic.so.1.82.0
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_chrono.so = libboost_chrono.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_chrono.so.1.82.0 = libboost_chrono.so.1.82.0
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_filesystem.so = libboost_filesystem.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_filesystem.so.1.82.0 = libboost_filesystem.so.1.82.0
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_log.so = libboost_log.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_log.so.1.82.0 = libboost_log.so.1.82.0
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_log_setup.so = libboost_log_setup.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_log_setup.so.1.82.0 = libboost_log_setup.so.1.82.0
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_regex.so = libboost_regex.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_regex.so.1.82.0 = libboost_regex.so.1.82.0
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_system.so = libboost_system.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_system.so.1.82.0 = libboost_system.so.1.82.0
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_thread.so = libboost_thread.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libboost_thread.so.1.82.0 = libboost_thread.so.1.82.0
+
+# CommonAPI libs
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libCommonAPI.so = libCommonAPI.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libCommonAPI.so.3.2.4 = libCommonAPI.so.3.2.4
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libCommonAPI-SomeIP.so = libCommonAPI-SomeIP.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libCommonAPI-SomeIP.so.3.2.4 = libCommonAPI-SomeIP.so.3.2.4
+
+# vsomeip3 libs — ALL symlinks and real files
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3.so = libvsomeip3.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3.so.3 = libvsomeip3.so.3
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3.so.3.5.5 = libvsomeip3.so.3.5.5
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3-cfg.so = libvsomeip3-cfg.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3-cfg.so.3 = libvsomeip3-cfg.so.3
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3-cfg.so.3.5.5 = libvsomeip3-cfg.so.3.5.5
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3-e2e.so = libvsomeip3-e2e.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3-e2e.so.3 = libvsomeip3-e2e.so.3
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3-e2e.so.3.5.5 = libvsomeip3-e2e.so.3.5.5
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3-sd.so = libvsomeip3-sd.so
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3-sd.so.3 = libvsomeip3-sd.so.3
+[uid=0 gid=0 perms=0755 search=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/stage/usr/lib] usr/lib/libvsomeip3-sd.so.3.5.5 = libvsomeip3-sd.so.3.5.5

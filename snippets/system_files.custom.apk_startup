@@ -3,27 +3,27 @@
 #!/bin/sh
 
 waitfor /dev/screen/
-if [ -d /dev/screen ]; then
-    echo '---> Starting Window Manager...'
-    lottie-player -d 1 -A /system/etc/startup/qnx.json
-
-    # enable lines below to run the fullscreen-winmgr
-    echo "Using Full Screen Window Manager..."
-    fullscreen-winmgr -d -s demolauncher,st,gtk &
-fi
+# if [ -d /dev/screen ]; then
+#     echo '---> Starting Window Manager...'
+#     lottie-player -d 1 -A /system/etc/startup/qnx.json
+# 
+#     # enable lines below to run the fullscreen-winmgr
+#     echo "Using Full Screen Window Manager..."
+#     fullscreen-winmgr -d -s demolauncher,st,gtk &
+# fi
 
 if [ ! -f /usr/etc/startup/first_startup_checks.lock ]; then
   export TERM=xterm-256color
   st -e /usr/etc/startup/first_startup_checks.sh
 fi
 
-if [ -d /dev/screen ]; then
-    echo '---> Starting Demolauncher...'
-    # enable lines below to run the demolauncher
-    # replaced by aboelyazeed:
-    # demolauncher -a /system/etc/desktop_files &
-    demolauncher -a /system/etc/desktop_files -b /system/etc/images/myAngel &
-fi
+# if [ -d /dev/screen ]; then
+#     echo '---> Starting Demolauncher...'
+#     # enable lines below to run the demolauncher
+#     # replaced by aboelyazeed:
+#     # demolauncher -a /system/etc/desktop_files &
+#     demolauncher -a /system/etc/desktop_files -b /system/etc/images/myAngel &
+# fi
 }
 
 [uid=0 gid=0 perms=0555] etc/startup/first_startup_checks.sh = {

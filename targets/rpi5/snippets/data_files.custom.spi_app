@@ -1,0 +1,4 @@
+[uid=0 gid=0 perms=0755] usr/bin/spi_loopback_test=/home/zee/ITI_Files/QNX/QNX_Snippets_repo/src/test-spi/spi_loopback_test
+
+[uid=0 gid=0 perms=0755] usr/bin/testSPI=/home/zee/ITI_Files/QNX/ide-8.0.3-workspace/testSPI/build/aarch64le-debug/testSPI
+
