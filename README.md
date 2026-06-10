@@ -30,6 +30,29 @@ git checkout -b main
 git push -u origin main
 ```
 
+### Correct way to clone (submodules)
+
+Always clone with submodules:
+
+```
+git clone --recurse-submodules git@github.com:PM-Maestro-ITI-GP-Org/QNX_CTI_Project.git
+```
+
+------
+
+### If you already cloned the repo
+
+Run this inside the repo:
+
+```
+git submodule update --init --recursive
+```
+
+This will fetch:
+
+- `src` (mid repo)
+- `ota-update` (nested submodule inside src)
+
 ## Overview
 
 This project allows QNX developers to build their own custom target images for
